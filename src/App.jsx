@@ -10,7 +10,7 @@ const SERVICE_ID = 'service_rpni9ku';
 const TEMPLATE_ID = 'template_ujfz0um';
 const PUBLIC_KEY = 'A03upzttruBB5ZOtF';
 
-const RECAPTCHA_SITE_KEY = '6LdvRsArAAAAAIZYJg1gNm8UIsmmMr1JjpoBCiwa';
+const RECAPTCHA_SITE_KEY = '6LfbVcArAAAAAK9xxSZGbCqTG22bhZfUUz4RbCrr';
 
 
 const ComingSoon = () => {
