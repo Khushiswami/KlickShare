@@ -61,7 +61,6 @@ const ComingSoonForm = () => {
   // -----------------emailjs and recaptcha end------------
 
 
-
   return (
     <div className="coming-soon">
       <img src={logo} alt="Company Logo" className="logo" />
@@ -85,18 +84,12 @@ const ComingSoonForm = () => {
 
       <div className="notify">
         <p className="description">Register to get early access</p>
-
         <form ref={formRef} onSubmit={handleSubmit}>
           <input type="text" name="user_name" placeholder="Enter your Name" />
           <input type="text" name="user_number" placeholder="Enter your Number" />
           <input type="email" name="user_email" placeholder="Enter your email " />
-
-
-
           <button type="submit">Register</button>
-
         </form>
-
       </div>
 
 

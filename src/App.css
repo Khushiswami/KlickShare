@@ -104,7 +104,7 @@ body {
   .description {
     font-size: 15px;
     max-width: 90%;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
   }
 }
 
@@ -139,67 +139,92 @@ body {
 
 /* Form */
 .notify {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 420px;
-  margin: 10px auto;
-  padding: 10px  25px 30px 25px;
+  max-width: 600px;
+  width: 90%;
+  margin: 0px auto;
+  padding: 0px 30px 20px 30px;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
   font-family: "Poppins", sans-serif;
 }
 
+.notify .description {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.notify form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 .notify input {
-  width: 100%;
   padding: 14px 16px;
-  font-size: 15px;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 12px;
+  font-size: 16px;
   outline: none;
   transition: all 0.3s ease;
-  background: #f9f9f9;
 }
 
 .notify input:focus {
-  border-color: #0077ff;
-  background: #fff;
-  box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
 .notify button {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #0077ff, #00c6ff);
+  background: #007bff;
   color: #fff;
   border: none;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .notify button:hover {
-  background: linear-gradient(135deg, #005fd1, #00aaff);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 119, 255, 0.25);
+  background: #0056b3;
 }
 
-@media (max-width: 500px) {
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .notify {
-    max-width: 90%;
-    padding: 20px;
+    padding: 30px 20px;
+  }
+
+  .notify .description {
+    font-size: 18px;
+  }
+
+  .notify input,
+  .notify button {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notify {
+    width: 95%;
+    padding: 0px 15px;
+    margin: 0px 0px 0px 0px;
+  }
+
+  .notify .description {
+    font-size: 16px;
   }
 
   .notify input,
   .notify button {
     font-size: 14px;
-    padding: 12px;
+    padding: 10px 12px;
   }
 }
 
