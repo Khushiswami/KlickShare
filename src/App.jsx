@@ -1,32 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import logo from "./assets/logo-klickshare.png";
+import emailjs from '@emailjs/browser';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+
+// Keys for emailjs and recaptcha
+const SERVICE_ID = 'service_rpni9ku';
+const TEMPLATE_ID = 'template_ujfz0um';
+const PUBLIC_KEY = 'A03upzttruBB5ZOtF';
+
+const RECAPTCHA_SITE_KEY = '6LdvRsArAAAAAIZYJg1gNm8UIsmmMr1JjpoBCiwa';
+
 
 const ComingSoon = () => {
-  const [timeLeft, setTimeLeft] = useState({});
 
-  useEffect(() => {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 20);
+  // -----------------emailjs and recaptcha start------------
+  const formRef = useRef();
+  const [captchaToken, setCaptchaToken] = useState(null);
 
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      setTimeLeft({ days, hours, minutes, seconds });
+    if (!captchaToken) {
+      alert("Please complete the reCAPTCHA.");
+      return;
+    }
 
-      if (distance < 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then(
+        (result) => {
+          console.log(result.text);
+          alert('Email sent successfully!');
+          formRef.current.reset();
+          setCaptchaToken(null); // Reset captcha token
+        },
+        (error) => {
+          console.log(error.text);
+          alert('Failed to send email.');
+        }
+      );
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  // -----------------emailjs and recaptcha end------------
+
+
 
   return (
     <div className="coming-soon">
@@ -34,37 +55,40 @@ const ComingSoon = () => {
 
       <p className="subtitle">AI photo sharing for photographers</p>
 
-      <h1 className="company-name"><span style={{ color: "#1468e6ff" }}>KLICK</span>SHARE</h1>
+      <h1 className="company-name"> <span style={{ color: "#1468e6ff" }}>KLICK</span>SHARE</h1>
 
       <p className="description">AI-powered photo sharing platform for photographers — fast uploads, private galleries and smart delivery. <br /><br /> Stay tuned for something amazing!</p>
 
 
-
-      {/* <div className="countdown">
-        <div>
-          <span>{timeLeft.days || 0}</span>
-          <p>Days</p>
-        </div>
-        <div>
-          <span>{timeLeft.hours || 0}</span>
-          <p>Hours</p>
-        </div>
-        <div>
-          <span>{timeLeft.minutes || 0}</span>
-          <p>Minutes</p>
-        </div>
-        <div>
-          <span>{timeLeft.seconds || 0}</span>
-          <p>Seconds</p>
-        </div>
+      {/* code without recaptha */}
+      {/* <div className="notify">
+        <p className="description">Register to get early access</p>
+        <input type="text" placeholder="Enter your Name" />
+        <input type="text" placeholder="Enter your Number" />
+        <input type="email" placeholder="Enter your email " />
+        <button>Register</button>
       </div> */}
 
 
-
       <div className="notify">
-        <input type="email" placeholder="Enter your email for early access" />
-        <button>Notify Me</button>
+        <p className="description">Register to get early access</p>
+
+        <form ref={formRef} onSubmit={handleSubmit}>
+          <input type="text" name="user_name" placeholder="Enter your Name" />
+          <input type="text" name="user_number" placeholder="Enter your Number" />
+          <input type="email" name="user_email" placeholder="Enter your email " />
+
+          <ReCAPTCHA
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={(token) => setCaptchaToken(token)}
+            onExpired={() => setCaptchaToken(null)}
+          />
+
+          <button type="submit">Register</button>
+        </form>
+
       </div>
+
 
       <div>
         <p style={{ color: "#777", fontSize: "14px" }}>We respect your privacy — unsubscribe anytime.</p>
