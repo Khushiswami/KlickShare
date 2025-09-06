@@ -3,7 +3,10 @@ import "./App.css";
 import logo from "./assets/logo-klickshare.png";
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
-
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 // Keys for emailjs and recaptcha
 const SERVICE_ID = 'service_rpni9ku';
@@ -13,14 +16,24 @@ const PUBLIC_KEY = 'A03upzttruBB5ZOtF';
 const RECAPTCHA_SITE_KEY = '6LfbVcArAAAAAK9xxSZGbCqTG22bhZfUUz4RbCrr';
 
 
-const ComingSoon = () => {
+const ComingSoonForm = () => {
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+
+  function onSubmit(token) {
+
+    document.getElementById("demo-form").submit();
+
+  }
 
   // -----------------emailjs and recaptcha start------------
   const formRef = useRef();
   const [captchaToken, setCaptchaToken] = useState(null);
 
 
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -78,13 +91,10 @@ const ComingSoon = () => {
           <input type="text" name="user_number" placeholder="Enter your Number" />
           <input type="email" name="user_email" placeholder="Enter your email " />
 
-          <ReCAPTCHA
-            sitekey={RECAPTCHA_SITE_KEY}
-            onChange={(token) => setCaptchaToken(token)}
-            onExpired={() => setCaptchaToken(null)}
-          />
+
 
           <button type="submit">Register</button>
+
         </form>
 
       </div>
@@ -143,7 +153,12 @@ const ComingSoon = () => {
 
 
     </div>
-  );
+  )
 };
+const ComingSoon = () => (
+  <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+    <ComingSoonForm />
+  </GoogleReCaptchaProvider>
+);
 
 export default ComingSoon;
