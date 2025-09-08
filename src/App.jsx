@@ -54,9 +54,9 @@ const ComingSoonForm = () => {
 
       // Debug log to check form values
       console.log("Form data:", {
-        name: formRef.current.user_name.value,
-        number: formRef.current.user_number.value,
-        email: formRef.current.user_email.value,
+        name: formRef.current.name.value,
+        number: formRef.current.number.value,
+        email: formRef.current.email.value,
       });
 
       // Send via EmailJS
@@ -106,19 +106,19 @@ const ComingSoonForm = () => {
         <form ref={formRef} onSubmit={handleSubmit}>
           <input
             type="text"
-            name="user_name"
+            name="name"
             placeholder="Enter your Name"
             required
           />
           <input
             type="text"
-            name="user_number"
+            name="number"
             placeholder="Enter your Number"
             required
           />
           <input
             type="email"
-            name="user_email"
+            name="email"
             placeholder="Enter your Email"
             required
           />
