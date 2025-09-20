@@ -1,10 +1,14 @@
 import connectMongo from "@/lib/mongodb";
 import User from "@/models/User";
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+
+type ParamsPromise= Promise<{id:string}>;
+
+export async function GET(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+   
     await connectMongo();
     const doc = await User.findById(id).lean();
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -15,9 +19,10 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+    
     const body = await req.json();
     await connectMongo();
     const updated = await User.findByIdAndUpdate(id, body, { new: true });
@@ -29,9 +34,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+
     const body = await req.json();
     await connectMongo();
     const doc = await User.findById(id);
@@ -54,9 +60,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+
     await connectMongo();
     const doc = await User.findByIdAndDelete(id);
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });

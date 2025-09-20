@@ -2,11 +2,14 @@
 
 import connectMongo from "@/lib/mongodb";
 import Photographer from "@/models/Photographer";
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+type ParamsPromise= Promise<{id:string}>;
+
+export async function GET(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+    
     await connectMongo();
     const doc = await Photographer.findById(id).lean();
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -17,9 +20,10 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+   
     const body = await req.json();
     await connectMongo();
     const updated = await Photographer.findByIdAndUpdate(id, body, { new: true });
@@ -31,9 +35,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+    
     const body = await req.json();
     await connectMongo();
     const doc = await Photographer.findById(id);
@@ -58,9 +63,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
+  const {id}=await context.params;
   try {
-    const { id } = params;
+    
     await connectMongo();
     const doc = await Photographer.findByIdAndDelete(id);
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
