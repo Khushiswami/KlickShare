@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -18,7 +16,7 @@ export default function PhotographersPage() {
   const [photographers, setPhotographers] = useState<Photographer[]>([]);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 10;
   const [loading, setLoading] = useState(false);
 
   const [newName, setNewName] = useState("");
@@ -59,12 +57,16 @@ export default function PhotographersPage() {
           name: newName.trim(),
           companyName: newCompany.trim(),
           mobileNumber: newMobile.trim(),
-          email: "test@example.com", // dummy for DB
+          email: `${newMobile.trim()}@example.com`, // unique dummy email
           otp: "123456", // dummy for DB
-          status: "active", // default active
+          status: "active",
         }),
       });
-      if (!res.ok) throw new Error("Failed to add photographer");
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Failed to add photographer");
+      }
 
       setNewName("");
       setNewCompany("");
@@ -170,11 +172,10 @@ export default function PhotographersPage() {
                     <td className="p-3">{p.mobileNumber}</td>
                     <td className="p-3">
                       <span
-                        className={`px-2 py-1 rounded text-sm ${
-                          p.status === "active"
+                        className={`px-2 py-1 rounded text-sm ${p.status === "active"
                             ? "bg-green-200 text-green-800"
                             : "bg-red-200 text-red-800"
-                        }`}
+                          }`}
                       >
                         {p.status}
                       </span>
@@ -207,33 +208,33 @@ export default function PhotographersPage() {
             {/* Pagination */}
             <div className="flex justify-center mt-4 space-x-2">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => fetchData(currentPage - 1)}
                 disabled={currentPage === 1}
                 className="px-3 py-1 border rounded disabled:opacity-50"
               >
                 Prev
               </button>
+
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-3 py-1 border rounded ${
-                    currentPage === i + 1 ? "bg-blue-600 text-white" : ""
-                  }`}
+                  onClick={() => fetchData(i + 1)}
+                  className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-600 text-white" : ""
+                    }`}
                 >
                   {i + 1}
                 </button>
               ))}
+
               <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
+                onClick={() => fetchData(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 border rounded disabled:opacity-50"
               >
                 Next
               </button>
             </div>
+
           </>
         )}
       </div>

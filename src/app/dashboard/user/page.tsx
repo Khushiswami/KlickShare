@@ -11,10 +11,12 @@ export default function UserDashboard() {
       try {
         const res = await fetch("/api/users?page=1&limit=1");
         if (!res.ok) throw new Error("Failed to fetch user");
+
         const json = await res.json();
         if (json.data && json.data.length > 0) {
           setUser(json.data[0]);
-        }
+        }        
+
       } catch (err) {
         console.error(err);
       }

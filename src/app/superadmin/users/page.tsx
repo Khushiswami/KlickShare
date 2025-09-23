@@ -15,7 +15,7 @@ export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 10;
   const [loading, setLoading] = useState(false);
 
   const [newName, setNewName] = useState("");
@@ -163,11 +163,10 @@ export default function UsersPage() {
                     <td className="p-3">{u.mobileNumber}</td>
                     <td className="p-3">
                       <span
-                        className={`px-2 py-1 rounded text-sm ${
-                          u.status === "active"
+                        className={`px-2 py-1 rounded text-sm ${u.status === "active"
                             ? "bg-green-200 text-green-800"
                             : "bg-red-200 text-red-800"
-                        }`}
+                          }`}
                       >
                         {u.status}
                       </span>
@@ -208,35 +207,36 @@ export default function UsersPage() {
             </table>
 
             {/* Pagination */}
+            {/* Pagination */}
             <div className="flex justify-center mt-4 space-x-2">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => fetchData(currentPage - 1)}
                 disabled={currentPage === 1}
                 className="px-3 py-1 border rounded disabled:opacity-50"
               >
                 Prev
               </button>
+
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-3 py-1 border rounded ${
-                    currentPage === i + 1 ? "bg-blue-600 text-white" : ""
-                  }`}
+                  onClick={() => fetchData(i + 1)}
+                  className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-600 text-white" : ""
+                    }`}
                 >
                   {i + 1}
                 </button>
               ))}
+
               <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
+                onClick={() => fetchData(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 border rounded disabled:opacity-50"
               >
                 Next
               </button>
             </div>
+
           </>
         )}
       </div>

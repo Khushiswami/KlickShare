@@ -1,5 +1,4 @@
 
-
 import connectMongo from "@/lib/mongodb";
 import Photographer from "@/models/Photographer";
 import { NextResponse } from "next/server";
@@ -16,7 +15,6 @@ export async function GET(req: Request) {
     const filter: any = {};
     if (status) filter.status = status;
 
-    // Send only fields needed for SuperAdmin panel
     const fieldsToSend = "name companyName mobileNumber status";
 
     const total = await Photographer.countDocuments(filter);
@@ -29,8 +27,8 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ data: docs, total });
   } catch (err: any) {
-    console.error(err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    console.error("GET /api/photographers error:", err);
+    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
 }
 
@@ -55,7 +53,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ data: created }, { status: 201 });
   } catch (err: any) {
-    console.error(err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    console.error("POST /api/photographers error:", err);
+    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
 }

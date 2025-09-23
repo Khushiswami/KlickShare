@@ -40,10 +40,7 @@ export default function PhotographerDashboard() {
       <p className="text-black mb-2">Mobile: {photographer.mobileNumber}</p>
       <p className="text-black mb-2">Email: {photographer.email}</p>
       <p className="text-black">This is your photographer dashboard.</p>
-
-      <p className="text-black">business profile setting</p>
-      <p className="text-black">Storage utilization</p>
-
+      
     </div>
   );
 }

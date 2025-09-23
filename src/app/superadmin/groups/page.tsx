@@ -20,7 +20,7 @@ export default function GroupsPage() {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 10;
 
   // Fetch groups
   useEffect(() => {
@@ -111,6 +111,7 @@ export default function GroupsPage() {
             onChange={(e) => setNewName(e.target.value)}
             className="px-3 py-2 border rounded w-1/3 text-black"
           />
+
           <input
             type="number"
             placeholder="Members"
@@ -118,6 +119,7 @@ export default function GroupsPage() {
             onChange={(e) => setNewMembers(Number(e.target.value))}
             className="px-3 py-2 border rounded w-1/3 text-black"
           />
+                                             
           <button
             type="submit"
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"

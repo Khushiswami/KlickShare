@@ -9,6 +9,8 @@ export default function AdminDashboard() {
           Welcome to the Klickshare Super Admin Panel.  
           Use the sidebar to manage photographers, groups, subscriptions, and transactions.
         </p>
+
+        
       </div>
     </AdminProtected>
   );
