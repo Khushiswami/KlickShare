@@ -64,51 +64,82 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
-          {/* Right side */}
-          <div className={styles.right}>
-            {/* Mobile */}
-            <div className={styles.mobileWrapper}>
-              <Image
-                src="/mobile.svg"
-                alt="Mobile Mockup"
-                width={500}
-                height={500}
-                className={styles.mobileImg}
-              />
-
-              {/* Floating cards */}
-              <div className={`${styles.card} ${styles.cardTop}`}>
-                Invite Participants Easily
-              </div>
-
-              <div className={`${styles.card} ${styles.cardMiddle}`}>
-                Analytics For Photo Views & Downloads
-              </div>
-
-              <div className={`${styles.card} ${styles.cardBottom}`}>
-                Create Personal or Public Groups
-              </div>
-            </div>
-          </div>
         </div>
       </section>
+
+
+      {/* Cards floating above mobile */}
+      <div className={styles.cardsSection}>
+        <div className={`${styles.card} ${styles.card1}`}>
+          <h1>Analytics for Photo Views & Downloads</h1>
+          <p>Track how many times photos are viewed, highlighted, or downloaded with smart insights.</p>
+          <Image
+            src="/card1.svg"
+            alt="Analytics"
+            width={300}
+            height={200}
+          />
+        </div>
+
+        <div className={`${styles.card} ${styles.card2} `}>
+          <h1>Invite Participants Easily</h1>
+
+          <div>
+            <Image
+              src="/card2.svg"
+              alt="Analytics"
+              width={70}
+              height={100}
+            />
+            <p>Send quick invites so clients, friends, or teams can join, view, and contribute to albums without hassle.</p>
+          </div>
+
+        </div>
+
+        <div className={`${styles.card} ${styles.card3}`}>
+          <div>
+            <h1>Create Personal or Public Groups</h1>
+            <p>Build private groups for clients or open groups for events, making photo sharing flexible and easy.</p>
+          </div>
+          <Image
+            src="/card3.svg"
+            alt="Analytics"
+            width={100}
+            height={200}
+          />
+        </div>
+
+        <div className={`${styles.card} ${styles.card4}`}>
+          <div>
+            <h1>Share Albums Smarter, Not Harder</h1>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Mockup */}
+      <div className={styles.mobileWrapper}>
+        <Image
+          src="/mobile.svg"
+          alt="Mobile Mockup"
+          width={500}
+          height={500}
+          className={styles.mobileImg}
+        />
+
+
+      </div>
+
 
       {/* Cards Section */}
       <section className={cardStyles.cardsContainer}>
         {/* Top Row Cards */}
         <div className={cardStyles.cardRow}>
-          {/* Card 1: Facial Recognition */}
+          {/* Card 1 */}
           <div className={`${cardStyles.card} ${cardStyles.topCard}`}>
             <div className={cardStyles.cardHeader}>
               <h3>Facial Recognition</h3>
               <div className={cardStyles.arrowIcon}>
-                <Image
-                  src="/arrow-up-right.svg"
-                  alt="Arrow icon"
-                  width={20}
-                  height={20}
-                />
+                <Image src="/arrow-up-right.svg" alt="Arrow icon" width={20} height={20} />
               </div>
             </div>
             <p>
@@ -116,26 +147,16 @@ export default function HomePage() {
               Endless Scrolling.
             </p>
             <div className={cardStyles.cardIcon}>
-              <Image
-                src="/face-recognition-icon.svg"
-                alt="Facial Recognition Icon"
-                width={80}
-                height={80}
-              />
+              <Image src="/facial-recognition.svg" alt="Facial Recognition Icon" width={90} height={90} />
             </div>
           </div>
 
-          {/* Card 2: Quality Retention */}
+          {/* Card 2 */}
           <div className={`${cardStyles.card} ${cardStyles.topCard}`}>
             <div className={cardStyles.cardHeader}>
               <h3>Quality Retention</h3>
               <div className={cardStyles.arrowIcon}>
-                <Image
-                  src="/arrow-up-right.svg"
-                  alt="Arrow icon"
-                  width={20}
-                  height={20}
-                />
+                <Image src="/arrow-up-right.svg" alt="Arrow icon" width={20} height={20} />
               </div>
             </div>
             <p>
@@ -143,89 +164,59 @@ export default function HomePage() {
               upload.
             </p>
             <div className={cardStyles.cardIcon}>
-              <Image
-                src="/quality-retention-icon.svg"
-                alt="Quality Retention Icon"
-                width={80}
-                height={80}
-              />
+              <Image src="/quality-retention.svg" alt="Quality Retention Icon" width={80} height={80} />
             </div>
           </div>
 
-          {/* Card 3: Unlimited Event Groups */}
+          {/* Card 3 */}
           <div className={`${cardStyles.card} ${cardStyles.topCard}`}>
             <div className={cardStyles.cardHeader}>
               <h3>Unlimited Event Groups</h3>
               <div className={cardStyles.arrowIcon}>
-                <Image
-                  src="/arrow-up-right.svg"
-                  alt="Arrow icon"
-                  width={20}
-                  height={20}
-                />
+                <Image src="/arrow-up-right.svg" alt="Arrow icon" width={20} height={20} />
               </div>
             </div>
             <p>
               Organize memories with unlimited event groups for every occasion.
             </p>
             <div className={cardStyles.cardIcon}>
-              <Image
-                src="/event-groups-icon.svg"
-                alt="Event Groups Icon"
-                width={80}
-                height={80}
-              />
+              <Image src="/unlimited-event-group.svg" alt="Event Groups Icon" width={80} height={80} />
             </div>
           </div>
         </div>
 
-        {/* Bottom Row Cards */}
+        {/* Second Row Cards */}
         <div className={cardStyles.cardRow}>
-          {/* Card 4: 15K Active Users */}
-          <div className={`${cardStyles.card} ${cardStyles.bottomCard}`}>
-            <div className={cardStyles.bottomCardContent}>
-              <div className={cardStyles.bottomCardIcon}>
-                <Image
-                  src="/active-user-icon.svg"
-                  alt="Active User Icon"
-                  width={40}
-                  height={40}
-                />
+          {/* Card 4 */}
+          <div className={cardStyles.statscard}>
+            <div className={cardStyles.statscontent}>
+              <Image src="/15K.svg" alt="15K" width={70} height={70} />
+              <div>
+                <h3>15K </h3>
+                <p>Active User On App</p>
               </div>
-              <h2>15K</h2>
-              <p>Active Users On App</p>
             </div>
           </div>
 
-          {/* Card 5: 1M Photos Upload & Share */}
-          <div className={`${cardStyles.card} ${cardStyles.bottomCard}`}>
-            <div className={cardStyles.bottomCardContent}>
-              <div className={cardStyles.bottomCardIcon}>
-                <Image
-                  src="/photos-upload-share-icon.svg"
-                  alt="Photos Upload & Share Icon"
-                  width={40}
-                  height={40}
-                />
+          {/* Card 5 */}
+          <div className={cardStyles.statscard}>
+            <div className={cardStyles.statscontent}>
+              <Image src="/1M.svg" alt="1M" width={70} height={70} />
+              <div>
+                <h3>1M </h3>
+                <p>photos Upload & Share</p>
               </div>
-              <h2>1M</h2>
-              <p>Photos Uploaded & Shared</p>
             </div>
           </div>
 
-          {/* Card 6: 99% Accuracy */}
-          <div className={`${cardStyles.card} ${cardStyles.bottomCard}`}>
-            <div className={cardStyles.bottomCardContent}>
-              <div className={cardStyles.bottomCardIcon}>
-                <Image
-                  src="/accuracy-icon.svg"
-                  alt="Accuracy Icon"
-                  width={40}
-                  height={40}
-                />
+          {/* Card 6 */}
+          <div className={cardStyles.statscard}>
+            <div className={cardStyles.statscontent}>
+              <Image src="/ninenine.svg" alt="99%" width={70} height={70} />
+              <div>
+                <h3>99% </h3>
+                <p>face Recognition Accuracy</p>
               </div>
-              <h2>99%</h2>
-              <p>Face Recognition Accuracy</p>
             </div>
           </div>
         </div>
