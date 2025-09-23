@@ -6,24 +6,132 @@ import { useRouter } from "next/navigation";
 export default function PhotographerSignup() {
   const router = useRouter();
 
+  const [step, setStep] = useState(1); // 1: contact info, 2: otp, 3: business details
   const [name, setName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("123456"); // dummy OTP
+  const [otp, setOtp] = useState("");
+  const [sentOtp, setSentOtp] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [experience, setExperience] = useState("");
+  const [portfolio, setPortfolio] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [resendTimer, setResendTimer] = useState(0);
+
+  const specializations = [
+    "Wedding Photography",
+    "Portrait Photography",
+    "Event Photography",
+    "Product Photography",
+    "Fashion Photography",
+    "Nature Photography",
+    "Architecture Photography",
+    "Other"
+  ];
+
+  const experienceLevels = [
+    "Less than 1 year",
+    "1-3 years",
+    "3-5 years",
+    "5-10 years",
+    "10+ years"
+  ];
+
+  // Simulate OTP sending
+  const sendOtp = async () => {
+    setLoading(true);
+    setError("");
+
+    // Validate inputs
+    if (!name.trim()) {
+      setError("Please enter your name");
+      setLoading(false);
+      return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(mobileNumber)) {
+      setError("Please enter a valid 10-digit mobile number");
+      setLoading(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Generate dummy OTP
+      const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      setSentOtp(generatedOtp);
+      setOtpSent(true);
+      setStep(2);
+      setSuccess(`OTP sent to + 91 ${ mobileNumber } and ${ email }`);
+
+      // Start resend timer
+      setResendTimer(30);
+      const timer = setInterval(() => {
+        setResendTimer(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+    } catch (err) {
+      setError("Failed to send OTP. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const verifyOtp = () => {
+    setError("");
+    if (otp === sentOtp || otp === "123456") { // Allow demo OTP
+      setSuccess("OTP verified successfully!");
+      setStep(3);
+    } else {
+      setError("Invalid OTP. Please try again.");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
+    if (!companyName.trim() || !specialization || !experience) {
+      setError("Please fill in all required fields");
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch("/api/photographers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, companyName, mobileNumber, email, otp }),
+        body: JSON.stringify({
+          name: name.trim(),
+          companyName: companyName.trim(),
+          mobileNumber,
+          email,
+          specialization,
+          experience,
+          portfolio: portfolio.trim(),
+          otp: sentOtp
+        }),
       });
 
       if (!res.ok) {
@@ -31,7 +139,10 @@ export default function PhotographerSignup() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      router.push("/dashboard/photographer");
+      setSuccess("Account created successfully! Redirecting...");
+      setTimeout(() => {
+        router.push("/dashboard/photographer");
+      }, 1500);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -40,58 +151,619 @@ export default function PhotographerSignup() {
   };
 
   return (
-    <div className="max-w-lg mx-auto px-6 py-16">
-      <h1 className="text-2xl font-bold mb-6">Photographer Sign Up</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-        <input
-          type="text"
-          placeholder="Company Name"
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-        <input
-          type="text"
-          placeholder="Mobile Number"
-          value={mobileNumber}
-          onChange={(e) => setMobileNumber(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-        <input
-          type="text"
-          placeholder="OTP"
-          value={otp}
-          disabled
-          className="w-full px-4 py-2 border rounded-lg bg-gray-100 text-black"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
-        >
-          {loading ? "Submitting..." : "Sign Up"}
-        </button>
+    <>
+      <style jsx global>{`
+        .signup-container {
+          min-height: 100vh;
+          background-color: #f7f7f7;
+          padding: 2rem 1rem;
+          position: relative;
+          overflow: hidden;
+        }
 
-        {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
-      </form>
-    </div>
+        .background-pattern {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .pattern-circle {
+          position: absolute;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #d5e6ee, #1f6563);
+          opacity: 0.1;
+        }
+
+        .circle-1 {
+          width: 300px;
+          height: 300px;
+          top: -150px;
+          right: -150px;
+        }
+
+        .circle-2 {
+          width: 200px;
+          height: 200px;
+          bottom: -100px;
+          left: -100px;
+        }
+
+        .circle-3 {
+          width: 150px;
+          height: 150px;
+          top: 30%;
+          left: -75px;
+        }
+
+        .signup-content {
+          max-width: 600px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 2;
+        }
+
+        .signup-card {
+          background: white;
+          border: 2px solid #d5e6ee;
+          border-radius: 20px;
+          padding: 2.5rem;
+          box-shadow: 0 8px 32px rgba(31, 101, 99, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .signup-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #1f6563, #d5e6ee);
+        }
+
+        .back-button {
+          background: none;
+          border: none;
+          color: #1f6563;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+          font-weight: 500;
+          transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+          color: #0f4f4c;
+        }
+
+        .step-indicator {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+          gap: 1rem;
+        }
+
+        .step-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #e0e0e0;
+          transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+          background: #1f6563;
+          transform: scale(1.2);
+        }
+
+        .step-dot.completed {
+          background: #1f6563;
+        }
+
+        .signup-header {
+          text-align: center;
+          margin-bottom: 2rem;
+        }
+
+        .signup-icon {
+          width: 60px;
+          height: 60px;
+          background: #d5e6ee;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1rem;
+          font-size: 1.5rem;
+        }
+
+        .signup-title {
+          font-size: 1.75rem;
+          font-weight: bold;
+          color: #1f6563;
+          margin-bottom: 0.5rem;
+        }
+
+        .signup-subtitle {
+          color: #666;
+          font-size: 1rem;
+        }
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+          display: block;
+          color: #333;
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+          width: 100%;
+          padding: 0.875rem 1rem;
+          border: 2px solid #e0e0e0;
+          border-radius: 12px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          background: white;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+          outline: none;
+          border-color: #1f6563;
+          box-shadow: 0 0 0 3px rgba(31, 101, 99, 0.1);
+        }
+
+        .form-input:disabled {
+          background: #f5f5f5;
+          color: #666;
+        }
+
+        .form-textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+
+        .submit-button {
+          width: 100%;
+          padding: 0.875rem 1.5rem;
+          border: 2px solid #1f6563;
+          border-radius: 9999px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          text-decoration: none;
+          background: #1f6563;
+          color: white;
+          box-shadow: 6px 6px 0px rgba(31, 101, 99, 0.3);
+        }
+
+        .submit-button:hover:not(:disabled) {
+          background: #0f4f4c;
+          box-shadow: none;
+          transform: translate(3px, 3px);
+        }
+
+        .submit-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: 6px 6px 0px rgba(31, 101, 99, 0.3);
+        }
+
+        .secondary-button {
+          background: #f7f7f7;
+          color: #1f6563;
+          box-shadow: 6px 6px 0px rgba(31, 101, 99, 1);
+        }
+
+        .secondary-button:hover:not(:disabled) {
+          background: #1f6563;
+          color: #f7f7f7;
+          box-shadow: none;
+        }
+
+        .resend-button {
+          background: none;
+          border: none;
+          color: #1f6563;
+          cursor: pointer;
+          font-weight: 500;
+          text-decoration: underline;
+          margin-top: 1rem;
+        }
+
+        .resend-button:disabled {
+          color: #999;
+          cursor: not-allowed;
+          text-decoration: none;
+        }
+
+        .error-message {
+          background: #fee;
+          border: 1px solid #fcc;
+          color: #c33;
+          padding: 0.75rem;
+          border-radius: 8px;
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
+        }
+
+        .success-message {
+          background: #efe;
+          border: 1px solid #cfc;
+          color: #363;
+          padding: 0.75rem;
+          border-radius: 8px;
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
+        }
+
+        .loading-spinner {
+          width: 20px;
+          height: 20px;
+          border: 2px solid transparent;
+          border-top: 2px solid currentColor;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .helper-text {
+          font-size: 0.875rem;
+          color: #666;
+          text-align: center;
+          margin-top: 1rem;
+        }
+
+        .demo-note {
+          background: #fff3cd;
+          border: 1px solid #ffeaa7;
+          color: #856404;
+          padding: 0.75rem;
+          border-radius: 8px;
+          margin-bottom: 1rem;
+          font-size: 0.875rem;
+          text-align: center;
+        }
+
+        .professional-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: linear-gradient(45deg, #1f6563, #d5e6ee);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          margin-bottom: 1rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+          .signup-container {
+            padding: 1rem 0.5rem;
+          }
+
+          .signup-card {
+            padding: 2rem 1.5rem;
+          }
+
+          .signup-title {
+            font-size: 1.5rem;
+          }
+
+          .form-row {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .signup-card {
+            padding: 1.5rem 1rem;
+          }
+        }
+      `}</style>
+
+      <div className="signup-container">
+        {/* Background Pattern */}
+        <div className="background-pattern">
+          <div className="pattern-circle circle-1"></div>
+          <div className="pattern-circle circle-2"></div>
+          <div className="pattern-circle circle-3"></div>
+        </div>
+
+        {/* Main Content */}
+        <div className="signup-content">
+          <div className="signup-card">
+            {/* Back Button */}
+            <button
+              onClick={() => router.push("/signup")}
+              className="back-button"
+            >
+              <span>←</span> Back to options
+            </button>
+
+            {/* Professional Badge */}
+            <div style={{ textAlign: 'center' }}>
+              <div className="professional-badge">
+                <span>📷</span> Professional Account
+              </div>
+            </div>
+
+            {/* Step Indicator */}
+            <div className="step-indicator">
+              <div className={`step-dot ${step >= 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`}></div>
+              <div className={`step-dot ${step >= 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}></div>
+              <div className={`step-dot ${step >= 3 ? 'active' : ''}`}></div>
+            </div>
+
+            {/* Header */}
+            <div className="signup-header">
+              <div className="signup-icon">
+                <span>
+                  {step === 1 && "📝"}
+                  {step === 2 && "📱"}
+                  {step === 3 && "🏢"}
+                </span>
+              </div>
+              <h1 className="signup-title">
+                {step === 1 && "Contact Information"}
+                {step === 2 && "Verify Your Details"}
+                {step === 3 && "Business Profile"}
+              </h1>
+              <p className="signup-subtitle">
+                {step === 1 && "Let's start with your basic contact details"}
+                {step === 2 && "We've sent a verification code to your phone and email"}
+                {step === 3 && "Tell us about your photography business"}
+              </p>
+            </div>
+
+            {/* Demo Note */}
+            <div className="demo-note">
+              <strong>Demo Mode:</strong> Use OTP "123456" or the generated OTP will be displayed
+            </div>
+
+            {/* Error/Success Messages */}
+            {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">{success}</div>}
+
+            {/* Step 1: Contact Information */}
+            {step === 1 && (
+              <form onSubmit={(e) => { e.preventDefault(); sendOtp(); }}>
+                <div className="form-group">
+                  <label className="form-label">Full Name *</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Mobile Number *</label>
+                    <input
+                      type="tel"
+                      placeholder="10-digit mobile number"
+                      value={mobileNumber}
+                      onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                      required
+                      className="form-input"
+                      maxLength={10}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Email Address *</label>
+                    <input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="form-input"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || !name.trim() || mobileNumber.length !== 10 || !email.trim()}
+                  className="submit-button secondary-button"
+                >
+                  {loading ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      Sending Verification...
+                    </>
+                  ) : (
+                    "Send Verification Code"
+                  )}
+                </button>
+              </form>
+            )}
+
+            {/* Step 2: OTP Verification */}
+            {step === 2 && (
+              <div>
+                <div className="form-group">
+                  <label className="form-label">Enter Verification Code</label>
+                  <input
+                    type="text"
+                    placeholder="Enter 6-digit code"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    className="form-input"
+                    maxLength={6}
+                    style={{ textAlign: 'center', fontSize: '1.25rem', letterSpacing: '0.5rem' }}
+                  />
+                </div>
+
+                {sentOtp && (
+                  <div className="success-message">
+                    <strong>Generated OTP:</strong> {sentOtp}
+                  </div>
+                )}
+
+                <button
+                  onClick={verifyOtp}
+                  disabled={otp.length !== 6}
+                  className="submit-button"
+                >
+                  Verify Code
+                </button>
+
+                <div style={{ textAlign: 'center' }}>
+                  <button
+                    onClick={sendOtp}
+                    disabled={resendTimer > 0 || loading}
+                    className="resend-button"
+                  >
+                    {resendTimer > 0 ? `Resend in ${resendTimer}s` : "Resend Code"}
+                  </button>
+                </div>
+
+                <p className="helper-text">
+                  Code sent to +91 {mobileNumber} and {email}
+                </p>
+              </div>
+            )}
+
+            {/* Step 3: Business Profile */}
+            {step === 3 && (
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label className="form-label">Company/Studio Name *</label>
+                  <input
+                    type="text"
+                    placeholder="Your photography business name"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    required
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Specialization *</label>
+                    <select
+                      value={specialization}
+                      onChange={(e) => setSpecialization(e.target.value)}
+                      required
+                      className="form-select"
+                    >
+                      <option value="">Select specialization</option>
+                      {specializations.map(spec => (
+                        <option key={spec} value={spec}>{spec}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Experience *</label>
+                    <select
+                      value={experience}
+                      onChange={(e) => setExperience(e.target.value)}
+                      required
+                      className="form-select"
+                    >
+                      <option value="">Select experience</option>
+                      {experienceLevels.map(level => (
+                        <option key={level} value={level}>{level}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Portfolio Website (Optional)</label>
+                  <input
+                    type="url"
+                    placeholder="https://yourportfolio.com"
+                    value={portfolio}
+                    onChange={(e) => setPortfolio(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Verified Contact Details</label>
+                  <div className="form-row">
+                    <input
+                      type="text"
+                      value={name}
+                      disabled
+                      className="form-input"
+                    />
+                    <input
+                      type="text"
+                      value={`+91 ${mobileNumber}`}
+                      disabled
+                      className="form-input"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    value={email}
+                    disabled
+                    className="form-input"
+                    style={{ marginTop: '1rem' }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || !companyName.trim() || !specialization || !experience}
+                  className="submit-button"
+                >
+                  {loading ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      Creating Professional Account...
+                    </>
+                  ) : (
+                    "Create Professional Account"
+                  )}
+                </button>
+
+                <p className="helper-text">
+                  By creating an account, you agree to our Terms & Conditions and Privacy Policy.
+                  Your professional account will be reviewed within 24 hours.
+                </p>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

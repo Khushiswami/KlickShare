@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "@/styles/home.module.css";
 import cardStyles from "@/styles/cardsSection.module.css";
+import sectionStyles from "@/styles/section.module.css";
 
 export default function HomePage() {
   return (
@@ -93,7 +94,6 @@ export default function HomePage() {
             />
             <p>Send quick invites so clients, friends, or teams can join, view, and contribute to albums without hassle.</p>
           </div>
-
         </div>
 
         <div className={`${styles.card} ${styles.card3}`}>
@@ -221,6 +221,25 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+
+      <section className={sectionStyles.container}>
+      <div className={sectionStyles.imageWrapper}>
+        <Image
+          src="/what-is-klickshare.svg" 
+          alt="Image"
+          width={400}
+          height={300}
+          className={sectionStyles.image}
+        />
+      </div>
+      <div className={sectionStyles.textWrapper}>
+        <h2 className={sectionStyles.heading}>What is Klickshare?</h2>
+        <p className={sectionStyles.paragraph}>
+          Klickshare is a smart digital album platform that helps you organize, share, and relive memories effortlessly. With facial recognition, quality retention, unlimited event groups, and one-shot uploads, it makes photo sharing simple, secure, and fun. It’s built for photographers, families, and event organizers who want stress-free photo management.
+        </p>
+      </div>
+    </section>
     </>
   );
 }
