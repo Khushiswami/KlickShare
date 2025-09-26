@@ -251,13 +251,7 @@ export default function Navbar() {
                   >
                     Logout
                   </button>
-                   <Link
-                    href="/signup"
-                    className={styles.dropdownItem}
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Sign Up
-                  </Link>
+                  
                   <Link
                     href="/terms"
                     className={styles.dropdownItem}
