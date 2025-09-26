@@ -132,7 +132,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-lg md:text-xl font-light max-w-2xl mx-auto">
               Your privacy is our priority. Learn how we protect your data and memories.
             </p>
-            <p className="text-sm mt-4 text-teal-200">Last updated: December 2024</p>
+            <p className="text-sm mt-4 text-teal-200">Last updated: October 2025</p>
           </div>
         </header>
 

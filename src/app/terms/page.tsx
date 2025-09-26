@@ -136,7 +136,7 @@ export default function TermsAndConditionsPage() {
             <p className="text-lg md:text-xl font-light max-w-2xl mx-auto">
               Clear guidelines for using KlickShare safely and responsibly.
             </p>
-            <p className="text-sm mt-4 text-teal-200">Last updated: December 2024</p>
+            <p className="text-sm mt-4 text-teal-200">Last updated: October 2025</p>
           </div>
         </header>
 
@@ -658,7 +658,7 @@ export default function TermsAndConditionsPage() {
               <h3 className="text-2xl font-bold mb-2">KlickShare.in</h3>
               <p className="text-gray-400">Where Memories Meet Intelligence</p>
             </div>
-            <p className="text-gray-400">© 2024 KlickShare.in. All rights reserved.</p>
+            <p className="text-gray-400">© 2025 KlickShare.in. All rights reserved.</p>
           </div>
         </footer>
       </div>
