@@ -24,7 +24,7 @@ export default function PhotographerSignup() {
 
   const specializations = [
     "Wedding Photography",
-    "Portrait Photography",
+    "Portrait Photography", 
     "Event Photography",
     "Product Photography",
     "Fashion Photography",
@@ -36,7 +36,7 @@ export default function PhotographerSignup() {
   const experienceLevels = [
     "Less than 1 year",
     "1-3 years",
-    "3-5 years",
+    "3-5 years", 
     "5-10 years",
     "10+ years"
   ];
@@ -45,7 +45,7 @@ export default function PhotographerSignup() {
   const sendOtp = async () => {
     setLoading(true);
     setError("");
-
+    
     // Validate inputs
     if (!name.trim()) {
       setError("Please enter your name");
@@ -70,14 +70,14 @@ export default function PhotographerSignup() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-
+      
       // Generate dummy OTP
       const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
       setSentOtp(generatedOtp);
       setOtpSent(true);
       setStep(2);
-      setSuccess(`OTP sent to + 91 ${ mobileNumber } and ${ email }`);
-
+      setSuccess(`OTP sent to +91 ${mobileNumber} and ${email}`);
+      
       // Start resend timer
       setResendTimer(30);
       const timer = setInterval(() => {
@@ -89,7 +89,7 @@ export default function PhotographerSignup() {
           return prev - 1;
         });
       }, 1000);
-
+      
     } catch (err) {
       setError("Failed to send OTP. Please try again.");
     } finally {
@@ -122,15 +122,15 @@ export default function PhotographerSignup() {
       const res = await fetch("/api/photographers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          companyName: companyName.trim(),
-          mobileNumber,
-          email,
+        body: JSON.stringify({ 
+          name: name.trim(), 
+          companyName: companyName.trim(), 
+          mobileNumber, 
+          email, 
           specialization,
           experience,
           portfolio: portfolio.trim(),
-          otp: sentOtp
+          otp: sentOtp 
         }),
       });
 
@@ -501,7 +501,7 @@ export default function PhotographerSignup() {
         <div className="signup-content">
           <div className="signup-card">
             {/* Back Button */}
-            <button
+            <button 
               onClick={() => router.push("/signup")}
               className="back-button"
             >
@@ -626,7 +626,7 @@ export default function PhotographerSignup() {
                     style={{ textAlign: 'center', fontSize: '1.25rem', letterSpacing: '0.5rem' }}
                   />
                 </div>
-
+                
                 {sentOtp && (
                   <div className="success-message">
                     <strong>Generated OTP:</strong> {sentOtp}

@@ -12,8 +12,8 @@ export async function GET(req: Request) {
     await connectMongo();
 
     const filter: any = {};
-    if (status) filter.status = status;
-
+    if (status) filter.status = status; 
+console.log(status);
     const total = await User.countDocuments(filter);
     const docs = await User.find(filter)
       .sort({ createdAt: -1 })

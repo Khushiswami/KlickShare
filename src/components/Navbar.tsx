@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -23,11 +22,17 @@ export default function Navbar() {
     <header className={styles.header}>
       <nav className={styles.navbar}>
         {/* Logo */}
-        <Link href="/">
-          <Image src="/logo.png" alt="Klickshare Logo" width={80} height={70} />
+        <Link href="/" className={styles.logoWrapper}>
+          <Image
+            src="/logo.png"
+            alt="Klickshare Logo"
+            width={80}
+            height={70}
+            className={styles.logoImage}
+          />
         </Link>
 
-        {/* Mobile menu button */}
+        {/* Mobile menu toggle button */}
         <button
           className="lg:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -73,19 +78,26 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-        </div>
 
-        <div>
+          {/* Sign Up button for mobile (inside menu) */}
           <Link
             href="/signup"
             onClick={() => setMenuOpen(false)}
-            className={styles.signupBtn}
+            className={`${styles.signupBtn} ${styles.mobileOnly}`}
           >
             Sign Up / Login
           </Link>
         </div>
+
+        {/* Sign Up button for desktop (outside menu) */}
+        <Link
+          href="/signup"
+          onClick={() => setMenuOpen(false)}
+          className={`${styles.signupBtn} ${styles.desktopOnly}`}
+        >
+          Sign Up / Login
+        </Link>
       </nav>
     </header>
   );
 }
-

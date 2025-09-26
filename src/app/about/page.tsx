@@ -1,8 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useRouter } from "next/navigation";
+
 
 export default function AboutPage() {
+  const router = useRouter();
+
   useEffect(() => {
     // Add intersection observer for animations
     const observerOptions = {
@@ -120,11 +124,11 @@ export default function AboutPage() {
           <section className="text-center mb-20">
             <h2 className="text-4xl font-bold text-gray-800 mb-8">Welcome to the Future of Photo Sharing</h2>
             <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed mb-12">
-              At KlickShare.in, we believe that memories deserve more than just storage — they deserve intelligent sharing. 
-              We are a next-generation photo sharing platform designed to simplify how moments are captured, organized, 
+              At KlickShare.in, we believe that memories deserve more than just storage — they deserve intelligent sharing.
+              We are a next-generation photo sharing platform designed to simplify how moments are captured, organized,
               and shared, using the power of facial recognition and smart group-based distribution.
             </p>
-            
+
             {/* Stats */}
             <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               {[
@@ -152,8 +156,8 @@ export default function AboutPage() {
                   <h3 className="text-2xl font-bold text-gray-800">Our Mission</h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-center">
-                  To revolutionize photo sharing by making it intelligent, effortless, and privacy-focused. 
-                  We empower people to capture and share life's precious moments without the hassle of 
+                  To revolutionize photo sharing by making it intelligent, effortless, and privacy-focused.
+                  We empower people to capture and share life's precious moments without the hassle of
                   manual organization or privacy concerns.
                 </p>
               </div>
@@ -166,7 +170,7 @@ export default function AboutPage() {
                   <h3 className="text-2xl font-bold text-gray-800">Our Vision</h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-center">
-                  To become the world's most trusted platform for intelligent photo sharing, where every 
+                  To become the world's most trusted platform for intelligent photo sharing, where every
                   memory finds its perfect audience automatically, and privacy is never compromised for convenience.
                 </p>
               </div>
@@ -178,7 +182,7 @@ export default function AboutPage() {
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-800 mb-4">What We Do</h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                KlickShare.in brings together photographers, event organizers, and everyday users on one intuitive platform 
+                KlickShare.in brings together photographers, event organizers, and everyday users on one intuitive platform
                 that ensures every photo finds its way to the right person — automatically.
               </p>
             </div>
@@ -280,12 +284,12 @@ export default function AboutPage() {
               </div>
               <div className="max-w-4xl mx-auto text-center">
                 <p className="text-lg text-gray-700 leading-relaxed mb-8">
-                  Unlike traditional photo-sharing tools, KlickShare.in doesn't just dump your photos into a feed. 
-                  We help you intelligently distribute memories, ensuring each user gets a personalized photo experience 
+                  Unlike traditional photo-sharing tools, KlickShare.in doesn't just dump your photos into a feed.
+                  We help you intelligently distribute memories, ensuring each user gets a personalized photo experience
                   without compromising quality or privacy.
                 </p>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  Whether you're managing hundreds of photos from a major event or sharing a handful with friends, 
+                  Whether you're managing hundreds of photos from a major event or sharing a handful with friends,
                   KlickShare makes it effortless, secure, and smart.
                 </p>
               </div>
@@ -336,11 +340,12 @@ export default function AboutPage() {
             <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-4xl mx-auto">
               <h2 className="text-4xl font-bold text-gray-800 mb-6">Join the Future of Photo Sharing</h2>
               <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                KlickShare.in isn't just another photo platform — it's the evolution of digital memory sharing. 
+                KlickShare.in isn't just another photo platform — it's the evolution of digital memory sharing.
                 Sign up today and experience a smarter way to capture, connect, and cherish moments.
               </p>
-              <button 
-                onClick={handleGetStarted}
+              <button
+                onClick={() => router.push("/signup")}
+
                 className="pulse-glow bg-gradient-to-r from-teal-600 to-teal-700 text-white px-12 py-4 rounded-full text-lg font-semibold hover:from-teal-700 hover:to-teal-800 transition-all duration-300 transform hover:scale-105"
               >
                 Get Started Today

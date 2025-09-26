@@ -2,7 +2,10 @@
 .header {
   background-color: #f7f7f7;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
 }
 
@@ -17,6 +20,18 @@
   color: black;
 }
 
+/* Logo container */
+.logoWrapper {
+  width: 80px;
+  height: auto;
+}
+
+.logoImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 /* Menu icon (hamburger) */
 .menuIcon {
   width: 28px;
@@ -24,7 +39,7 @@
   cursor: pointer;
 }
 
-/* Nav Links (desktop default hidden for mobile) */
+/* Nav Links */
 .navLinks {
   display: none;
 }
@@ -82,18 +97,17 @@
   text-align: center;
 }
 
+/* Hover effect */
 .signupBtn:hover {
   background: #1f6563;
   color: #f7f7f7;
   box-shadow: none;
 }
 
-
-
 /* Desktop (≥1024px) */
 @media (min-width: 1024px) {
   .menuIcon {
-    display: none; 
+    display: none;
   }
 
   .navLinks {
@@ -106,24 +120,24 @@
     border-radius: 9999px;
     font-weight: 500;
     align-items: center;
-    
   }
 
   .navLinksOpen {
-    display: none; 
+    display: none;
   }
 
   .signupBtn {
-    margin-top: 0; 
+    margin-top: 0;
     margin-left: 1rem;
+    width: auto;
   }
 }
 
 /* Tablet (600px - 1023px) */
 @media (min-width: 600px) and (max-width: 1023px) {
-.navLink{
-  display: none;
-}
+  .navLink {
+    display: block;
+  }
 
   .navLinksOpen {
     padding: 1.2rem;
@@ -131,8 +145,13 @@
   }
 
   .signupBtn {
-    width: fit-content;
+    width: 100%;
     align-self: flex-start;
+    box-shadow: none;
+  }
+
+  .logoWrapper {
+    width: 65px;
   }
 }
 
@@ -145,5 +164,26 @@
   .signupBtn {
     width: 100%;
     text-align: center;
+    box-shadow: none;
+  }
+
+  .logoWrapper {
+    width: 55px;
   }
 }
+
+/* Show only on desktop (≥1024px) */
+.desktopOnly {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktopOnly {
+    display: inline-block;
+  }
+
+  .mobileOnly {
+    display: none;
+  }
+}
+
