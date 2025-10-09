@@ -95,7 +95,7 @@ export default function GroupsPage() {
   );
 
 
-  
+
 
   return (
     <AdminProtected>
@@ -119,7 +119,7 @@ export default function GroupsPage() {
             onChange={(e) => setNewMembers(Number(e.target.value))}
             className="px-3 py-2 border rounded w-1/3 text-black"
           />
-                                             
+
           <button
             type="submit"
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
@@ -138,7 +138,8 @@ export default function GroupsPage() {
             <table className="w-full border border-gray-300 bg-white shadow-md rounded-lg text-black">
               <thead>
                 <tr className="bg-gray-200 text-left">
-                  <th className="p-3">ID</th>
+                  <th className="p-3">S No.</th>
+                  <th className="p-3">Group ID</th>
                   <th className="p-3">Group Name</th>
                   <th className="p-3">Members</th>
                   <th className="p-3">Status</th>
@@ -146,38 +147,42 @@ export default function GroupsPage() {
                 </tr>
               </thead>
               <tbody>
-                {currentGroups.map((g) => (
+                {currentGroups.map((g, index) => (
                   <tr key={g._id} className="border-t hover:bg-gray-50 text-black">
-                    <td className="p-3">{g._id}</td>
+                    <td className="p-3">{(currentPage - 1) * pageSize + index + 1}</td>
+                    <td className="p-3">{g._id.slice(0, 8)}</td>
                     <td className="p-3">{g.name}</td>
                     <td className="p-3">{g.members}</td>
                     <td className="p-3">
                       <span
-                        className={`px-2 py-1 rounded text-sm ${
-                          g.status === "active"
-                            ? "bg-green-200 text-green-800"
-                            : "bg-red-200 text-red-800"
-                        }`}
+                        className={`px-2 py-1 rounded text-sm ${g.status === "active"
+                          ? "bg-green-200 text-green-800"
+                          : "bg-red-200 text-red-800"
+                          }`}
                       >
                         {g.status}
                       </span>
                     </td>
-                    <td className="p-3 flex space-x-3">
-                      {/* Edit Link */}
-                      <a
-                        href={`/superadmin/groups/edit/${g._id}`}
-                        className="text-blue-600 hover:underline"
-                      >
-                        Edit
-                      </a>
-                      {/* Activate/Deactivate */}
-                      <button
-                        onClick={() => toggleStatus(g._id, g.status)}
-                        className="text-sm bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
-                      >
-                        {g.status === "active" ? "Deactivate" : "Activate"}
-                      </button>
+                    <td className="p-3">
+                      <div className="flex flex-col space-y-2">
+                        {/* Edit Link */}
+                        <a
+                          href={`/superadmin/groups/edit/${g._id}`}
+                          className="text-blue-600 hover:underline w-28 text-center"
+                        >
+                          Edit
+                        </a>
+
+                        {/* Activate/Deactivate */}
+                        <button
+                          onClick={() => toggleStatus(g._id, g.status)}
+                          className="text-sm bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900 w-28"
+                        >
+                          {g.status === "active" ? "Deactivate" : "Activate"}
+                        </button>
+                      </div>
                     </td>
+
                   </tr>
                 ))}
               </tbody>
@@ -196,9 +201,8 @@ export default function GroupsPage() {
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`px-3 py-1 border rounded ${
-                    currentPage === i + 1 ? "bg-blue-600 text-white" : ""
-                  }`}
+                  className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-600 text-white" : ""
+                    }`}
                 >
                   {i + 1}
                 </button>

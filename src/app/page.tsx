@@ -1,281 +1,441 @@
+"use client";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { FaUpload } from "react-icons/fa";
 import styles from "@/styles/home.module.css";
-import cardStyles from "@/styles/cardsSection.module.css";
-// import sectionStyles from "@/styles/section.module.css";
-import growStyles from "@/styles/growSection.module.css";
-import hoverStyles from "@/styles/hovercardSection.module.css";
-
+import qr_styles from "@/styles/qr.module.css"
+import htw_styles from "@/styles/howitworks.module.css"
+import future_styles from "@/styles/future.module.css"
+import trust_styles from "@/styles/trust.module.css"
 
 export default function HomePage() {
+  const words = ["Photographer", "Weddings", "Corporate Events", "Social Events", "Tours"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [bounce, setBounce] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBounce(false); // start exit animation
+      setTimeout(() => {
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        setBounce(true); // start bounce animation
+      }, 300); // exit duration
+    }, 2000); // total time per word
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
-      <section className={styles.hero}>
-        {/* Background image */}
-        <div className={styles.heroBg}>
-          <Image
-            src="/herobg.png"
-            alt="Background pattern"
-            fill
-            priority
-            className={styles.bgImage}
-          />
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 md:py-16 lg:py-20 flex flex-col md:flex-row justify-between items-center gap-12 lg:gap-20">
+
+        {/* Left Section */}
+        <div className="w-full md:w-1/2 flex flex-col gap-6 justify-center items-start">
+          <h1 className={styles.heading}>
+            <span className={styles.headingPrimary}>Ai Photo sharing</span>
+            <span className={styles.headingPrimary}>Solution for</span>
+            <span
+              className={`${styles.headingHighlight} ${bounce ? styles.bounceIn : styles.bounceOut}`}
+            >
+              {words[currentWordIndex]}
+            </span>
+          </h1>
+
+          <p className={styles.subText}>
+            Create Memories Anywhere, Anytime. With <br />Powerful Digital Album Solution
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4">
+            <button className={styles.uploadButton}>
+              <FaUpload className="inline mr-2" /> Upload
+            </button>
+
+            <button className={`${styles.storeButton} flex items-center gap-2 px-4 py-2 rounded-lg`}>
+              App Store
+              <img src="/apple-log.svg" alt="Apple Store" className="w-5 h-5" />
+            </button>
+
+            <button className={`${styles.storeButton} flex items-center gap-2 px-4 py-2 rounded-lg`}>
+              Play Store
+              <img src="/playstore-logo.svg" alt="Google Play Store" className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Content container */}
-        <div className={styles.heroContent}>
-          {/* Left side text */}
-          <div className={styles.left}>
-            <h1>
-              Simplify Photo Sharing with
-              Powerful Digital Album Solution
-            </h1>
-            <div className={styles.up}>
-              <button className={styles.uploadBtn}>Upload</button>
-              <p>Create Memories Anywhere, Anytime.</p>
-            </div>
-
-            <div className={styles.storeBtns}>
-              <div className={styles.buttons}>
-                <div>
-                  <p>Download it on</p>
-                  <p>App Store</p>
-                </div>
-                <div>
-                  <Image
-                    src="/apple-log.svg"
-                    alt="Download on the App Store"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-              </div>
-
-              <div className={styles.buttons}>
-                <div>
-                  <p>Get it on</p>
-                  <p>Google Play</p>
-                </div>
-                <div>
-                  <Image
-                    src="/playstore-logo.svg"
-                    alt="Get it on Google Play"
-                    width={35}
-                    height={30}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Right Section */}
+        <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-10 md:mt-0">
+          <Image
+            src="/Mobile-mockup.svg"
+            alt="Mobile Mockup"
+            width={400}
+            height={400}
+            className={styles.mobileImage}
+          />
         </div>
       </section>
 
-      {/* Mobile Mockup OUTSIDE hero to prevent clipping */}
-      <div className={styles.mobileWrapper}>
-        <Image
-          src="/mobile.svg"
-          alt="Mobile Mockup"
-          width={500}
-          height={500}
-          className={styles.mobileImg}
-        />
-      </div>
+      {/* New Section */}
+      <section className={`${qr_styles.qrSection} max-w-7xl mx-auto px-4 sm:px-6 lg:px-12`}>
+        <h2 className={qr_styles.heading}>
+          QR Code Photo
+          <br />
+          Sharing Made Simple
+        </h2>
+        <p className={qr_styles.subText}>
+          A QR code gives your guests an instant way to add their photos to your event collection. Everyone can easily contribute their perspective - whether it's photos from the dance floor, videos of special moments, or audio messages that capture the joy of your celebration. All content is automatically organized in your private digital album.
+        </p>
 
-
-      {/* Cards Section */}
-      <section className={cardStyles.cardsContainer}>
-        {/* Top Row Cards */}
-        <div className={cardStyles.cardRow}>
-          {/* Card 1 */}
-          <div className={`${cardStyles.card} ${cardStyles.topCard}`}>
-            <div className={cardStyles.cardHeader}>
-              <h3>Facial Recognition</h3>
-              <div className={cardStyles.arrowIcon}>
-                <Image src="/arrow-up-right.svg" alt="Arrow icon" width={20} height={20} />
-              </div>
-            </div>
-            <p>
-              Automatically Find Your Photos With Smart Facial Recognition—No Endless Scrolling.
-            </p>
-            <div className={cardStyles.cardIcon}>
-              <Image src="/facial-recognition.svg" alt="Facial Recognition Icon" width={90} height={90} />
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className={`${cardStyles.card} ${cardStyles.topCard}`}>
-            <div className={cardStyles.cardHeader}>
-              <h3>Quality Retention</h3>
-              <div className={cardStyles.arrowIcon}>
-                <Image src="/arrow-up-right.svg" alt="Arrow icon" width={20} height={20} />
-              </div>
-            </div>
-            <p>Keep your photos sharp and clear without losing quality after upload.</p>
-            <div className={cardStyles.cardIcon}>
-              <Image src="/quality-retention.svg" alt="Quality Retention Icon" width={80} height={80} />
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className={`${cardStyles.card} ${cardStyles.topCard}`}>
-            <div className={cardStyles.cardHeader}>
-              <h3>Unlimited Event Groups</h3>
-              <div className={cardStyles.arrowIcon}>
-                <Image src="/arrow-up-right.svg" alt="Arrow icon" width={20} height={20} />
-              </div>
-            </div>
-            <p>Organize memories with unlimited event groups for every occasion.</p>
-            <div className={cardStyles.cardIcon}>
-              <Image src="/unlimited-event-group.svg" alt="Event Groups Icon" width={80} height={80} />
-            </div>
-          </div>
-        </div>
-
-        {/* Second Row Cards */}
-        <div className={cardStyles.cardRow}>
-          {/* Card 4 */}
-          <div className={cardStyles.statscard}>
-            <div className={cardStyles.statscontent}>
-              <Image src="/15K.svg" alt="15K" width={60} height={60} />
-              <div>
-                <h3>15K</h3>
-                <p>Active User On App</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 5 */}
-          <div className={cardStyles.statscard}>
-            <div className={cardStyles.statscontent}>
-              <Image src="/1M.svg" alt="1M" width={60} height={60} />
-              <div>
-                <h3>1M</h3>
-                <p>photos Upload & Share</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 6 */}
-          <div className={cardStyles.statscard}>
-            <div className={cardStyles.statscontent}>
-              <Image src="/ninenine.svg" alt="99%" width={60} height={60} />
-              <div>
-                <h3>99%</h3>
-                <p>face Recognition Accuracy</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Card Animation */}
       </section>
 
 
-
-      {/* What is Klickshare */}
-      <section className="flex flex-col md:flex-row items-center justify-between gap-8 px-8 py-12 md:mx-[150px]">
-        <div className="w-full md:w-1/2">
-          <Image
-            src="/what-is-klickshare.svg"
-            alt="Image"
-            width={500}
-            height={500}
-            className="w-full h-auto rounded-xl"
-          />
-        </div>
-        <div className="w-full md:w-1/2 mt-6 md:mt-0 text-center md:text-left">
-          <h2 className="text-[#1F6563] text-2xl font-bold mb-4">What is Klickshare?</h2>
-          <p className="text-black text-base leading-relaxed">
-            Klickshare is a smart digital album platform that helps you organize, share, and relive memories effortlessly.
-            With facial recognition, quality retention, unlimited event groups, and one-shot uploads, it makes photo sharing simple,
-            secure, and fun. It’s built for photographers, families, and event organizers who want stress-free photo management.
+      {/* New Section */}
+      {/* How It Works Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-16">
+        {/* Heading */}
+        <div className="text-center mb-12">
+          <h2 className={`text-4xl font-bold ${htw_styles.gradientText}`}>
+            How does it work?
+          </h2>
+          <p className={`mt-4 text-center ${htw_styles.subText} text-lg`}>
+            Hassle-free experience - for you and your party guests.
           </p>
         </div>
-      </section>
 
+        {/* Step 1 - Image on Right */}
+        <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
+          {/* Left Content */}
+          <div className="md:w-1/2 flex items-start gap-4">
+            <div className={htw_styles.circleStep}>01</div>
+            <div className="flex flex-col">
+              <span className={htw_styles.stepLabel}>Step 1:</span>
+              <span className={htw_styles.stepHeading}>Upload Your Photos</span>
+              <span className={htw_styles.stepSubtext}>
+                Effortlessly upload your photos to the platform — quick, simple, and secure. Ideal for photographers and everyday users alike.              </span>
+              <button className={htw_styles.button}>Upload</button>
+            </div>
+          </div>
 
-      {/* Grow Section */}
-      <section className={growStyles.growSection}>
-        <div className={growStyles.growWrapper}>
-          <h2>Grow Your Photography Business Today</h2>
-          <div className={growStyles.growContent}>
-            <p>Stand out with professionalism and leave a lasting impression.</p>
-            <button className={growStyles.growButton}>Start Sharing Now</button>
+          {/* Right Image */}
+          <div className="md:w-1/2 flex justify-center md:justify-end mt-6 md:mt-0">
+            <Image
+              src="/step1-image.svg"
+              alt="Step 1 Image"
+              width={300}
+              height={300}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+
+        {/* Step 2 - Image on Left */}
+        <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
+          {/* Left Image */}
+          <div className="md:w-1/2 flex justify-center md:justify-start order-1 md:order-1">
+            <Image
+              src="/step2-image.svg"
+              alt="Step 2 Image"
+              width={400}
+              height={300}
+              className="rounded-lg"
+            />
+          </div>
+
+          {/* Right Content */}
+          <div className="md:w-1/2 flex items-start gap-4 order-2 md:order-2 mt-6 md:mt-0">
+            <div className={htw_styles.circleStep}>02</div>
+            <div className="flex flex-col">
+              <span className={htw_styles.stepLabel}>Step 2:</span>
+              <span className={htw_styles.stepHeading}>Create Groups</span>
+              <span className={htw_styles.stepSubtext}>
+                Organize your memories into custom groups for events and occasions. Perfect for weddings, school trips,  and family reunions.              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 3 - Image on Right */}
+        <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
+          {/* Left Content */}
+          <div className="md:w-1/2 flex items-start gap-4">
+            <div className={htw_styles.circleStep}>03</div>
+            <div className="flex flex-col">
+              <span className={htw_styles.stepLabel}>Step 3:</span>
+              <span className={htw_styles.stepHeading}>AI Recognition</span>
+              <span className={htw_styles.stepSubtext}>
+                Let our smart engine automatically identify faces in your photos. Save time with instant and accurate recognition.                   </span>
+            </div>
+          </div>
+
+          {/* Right Image */}
+          <div className="md:w-1/2 flex justify-center md:justify-end mt-6 md:mt-0">
+            <Image
+              src="/step3-image.svg"
+              alt="Step 3 Image"
+              width={400}
+              height={300}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+
+        {/* Step 4 - Image on Left */}
+        <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
+          {/* Left Image */}
+          <div className="md:w-1/2 flex justify-center md:justify-start order-1 md:order-1">
+            <Image
+              src="/step4-image.svg"
+              alt="Step 4 Image"
+              width={400}
+              height={300}
+              className="rounded-lg"
+            />
+          </div>
+
+          {/* Right Content */}
+          <div className="md:w-1/2 flex items-start gap-4 order-2 md:order-2 mt-6 md:mt-0">
+            <div className={htw_styles.circleStep}>04</div>
+            <div className="flex flex-col">
+              <span className={htw_styles.stepLabel}>Step 4:</span>
+              <span className={htw_styles.stepHeading}>Smart Distribution</span>
+              <span className={htw_styles.stepSubtext}>
+                Photos are auto-sorted and shared only with the right people. Ensuring privacy and a personalized viewing experience.             </span>
+            </div>
           </div>
         </div>
       </section>
 
 
-      {/* 4 HOVER CARD SECTION */}
-      <section className={hoverStyles.hovercardSection}>
-        <h1 className={hoverStyles.sectionHeading}>Get Started with Klickshare – 4 Steps</h1>
+      {/* Future of Photo Sharing Section */}
+      <section className="bg-[#E1EAEA] py-16 px-4 sm:px-6 lg:px-12">
+        <div className={`max-w-7xl mx-auto bg-white rounded-xl flex flex-col md:flex-col lg:flex-col  gap-8 shadow ${future_styles.card}`}>
 
-        <div className={hoverStyles.cardsSection}>
-          {/* Card 1 */}
-          <div className={`${hoverStyles.card} ${hoverStyles.top} ${hoverStyles.expandUp}`}>
-            <div className={hoverStyles.cardInner}>
-              <div className={hoverStyles.cardHeader}>
-                <h1 className={hoverStyles.cardNumber}>01</h1>
-                <h2 className={hoverStyles.cardTitle}>Sign Up & Face Recognition</h2>
+          {/* Flex Section: Left Text + Right Image */}
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            {/* Left Section */}
+            <div className="md:w-1/2 flex flex-col gap-6">
+              <h2 className={`text-3xl md:text-4xl font-bold ${future_styles.gradientText}`}>
+                Welcome to the Future of Photo Sharing
+              </h2>
+              <p className={future_styles.subText}>
+                At Klickshare, we believe the memories deserve more than just storage — they deserve intelligent sharing.
+                We present a next-generation photo sharing platform designed to simplify how moments are captured, organized, and shared using facial recognition and modern group-based distribution.
+              </p>
+              <div className="flex gap-4 mt-4">
+                <button className={future_styles.joinButton}>Join Group</button>
+                <button className={future_styles.pricingButton}>Pricing</button>
               </div>
-              <div className={hoverStyles.cardContent}>
-                <p className={hoverStyles.shortText}>Sign up using your phone number or email...</p>
-                <p className={hoverStyles.extraText}>This ensures a secure, verified identity for safe photo sharing.</p>
-              </div>
+            </div>
+
+            {/* Right Section */}
+            <div className="md:w-1/2 flex justify-center md:justify-end mt-6 md:mt-0">
+              <Image
+                src="/future-section.svg"
+                alt="Future of Photo Sharing"
+                width={400}
+                height={300}
+                className="rounded-lg"
+              />
             </div>
           </div>
 
-          {/* Card 2 */}
-          <div className={`${hoverStyles.card} ${hoverStyles.top} ${hoverStyles.expandUp}`}>
-            <div className={hoverStyles.cardInner}>
-              <div className={hoverStyles.cardHeader}>
-                <h1 className={hoverStyles.cardNumber}>02</h1>
-                <h2 className={hoverStyles.cardTitle}>Join and Create Groups</h2>
-              </div>
-              <div className={hoverStyles.cardContent}>
-                <p className={hoverStyles.shortText}>Upload photos from multiple sources...</p>
-                <p className={hoverStyles.extraText}>Everyone in the group can view, enjoy, and engage.</p>
+          {/* Thin line */}
+          <div className="w-full border-t border-gray-300 my-8"></div>
+
+          {/* Three Info Sections */}
+          <div className="flex flex-col md:flex-row justify-between gap-20">
+            {/* Info Section 1 */}
+            <div className="flex items-center gap-10 md:w-1/3">
+              <Image
+                src="/facial-recognition.svg"
+                alt="Info 1"
+                width={50}
+                height={50}
+                className="flex-shrink-0"
+              />
+              <div className="flex flex-col">
+                <span className={future_styles.infoHeading}>Facial Recognition</span>
+                <span className={future_styles.infoSubtext}>
+                  Automatically find your photos with smart facial recognition—no endless scrolling.                </span>
               </div>
             </div>
-          </div>
 
-          {/* Card 3 */}
-          <div className={`${hoverStyles.card} ${hoverStyles.bottom} ${hoverStyles.expandDown}`}>
-            <div className={hoverStyles.cardInner}>
-              <div className={hoverStyles.cardHeader}>
-                <h1 className={hoverStyles.cardNumber}>03</h1>
-                <h2 className={hoverStyles.cardTitle}>Relive & Securely Download</h2>
-              </div>
-              <div className={hoverStyles.cardContent}>
-                <p className={hoverStyles.shortText}>View and download your photos securely anytime...</p>
-                <p className={hoverStyles.extraText}>Premium plans unlock extra storage and options.</p>
+            {/* Info Section 2 */}
+            <div className="flex items-center gap-10 md:w-1/3">
+              <Image
+                src="/quality-retention.svg"
+                alt="Info 2"
+                width={50}
+                height={50}
+                className="flex-shrink-0"
+              />
+              <div className="flex flex-col">
+                <span className={future_styles.infoHeading}>Quality Retention</span>
+                <span className={future_styles.infoSubtext}>
+                  Automatically find your photos with smart facial recognition—no endless scrolling.                </span>
               </div>
             </div>
-          </div>
 
-          {/* Card 4 */}
-          <div className={`${hoverStyles.card} ${hoverStyles.bottom} ${hoverStyles.expandDown}`}>
-            <div className={hoverStyles.cardInner}>
-              <div className={hoverStyles.cardHeader}>
-                <h1 className={hoverStyles.cardNumber}>04</h1>
-                <h2 className={hoverStyles.cardTitle}>Share Memories</h2>
-              </div>
-              <div className={hoverStyles.cardContent}>
-                <p className={hoverStyles.shortText}>Join existing event groups or create your own...</p>
-                <p className={hoverStyles.extraText}>Keep photos organized and shared with the people.</p>
+            {/* Info Section 3 */}
+            <div className="flex items-center gap-7 md:w-1/3">
+              <Image
+                src="/unlimited-event-group.svg"
+                alt="Info 3"
+                width={50}
+                height={50}
+                className="flex-shrink-0"
+              />
+              <div className="flex flex-col">
+                <span className={future_styles.infoHeading}>Unlimited Event Groups</span>
+                <span className={future_styles.infoSubtext}>
+                  Automatically find your photos with smart facial recognition—no endless scrolling.                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Camera Image */}
-      <section className="m-0">
-        <Image
-            src="/Camera.svg"
-            alt="Image"
-            width={500}
-            height={500}
-            className="w-full h-auto rounded-xl"
-          />
+
+      {/* Trusted QR Code Photo Sharing Section */}
+      <section className="bg-[#E1EAEA] py-16 px-4 sm:px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20 ">
+
+          {/* LEFT SECTION */}
+          <div className="w-full md:w-1/2 flex flex-col gap-6">
+
+            {/* Heading */}
+            <h2 className={`text-3xl md:text-4xl font-bold ${trust_styles.gradientText}`}>
+              Trusted QR Code Photo Sharing Worldwide
+            </h2>
+
+            {/* Subtext */}
+            <p className={trust_styles.subText}>
+              At Klickshare, we believe the memories deserve more than just storage — they deserve intelligent sharing.
+              We present a next-generation photo sharing platform designed to simplify how moments are captured,
+              organized, and shared using facial recognition and modern group-based distribution.
+            </p>
+
+            {/* Vertical Cards */}
+            <div className="flex flex-col gap-4 mt-4">
+              {/* Card 1 */}
+              <div className={`flex justify-center items-center gap-4 p-4  ${trust_styles.trustCard}`}>
+                <Image
+                  src="/15K.svg"
+                  alt="Trust Card 1"
+                  width={50}
+                  height={50}
+                  className="flex-shrink-0"
+                />
+                <div>
+                  <h4 className={trust_styles.cardHeading}>15K</h4>
+                  <p className={trust_styles.cardSubtext}>Active User On Aap</p>
+                </div>
+              </div>
+
+              {/* Card 2 */}
+              <div className={`flex justify-center items-center gap-4 p-4 rounded-lg ${trust_styles.trustCard}`}>
+                <Image
+                  src="/1M.svg"
+                  alt="Trust Card 2"
+                  width={50}
+                  height={50}
+                  className="flex-shrink-0"
+                />
+                <div>
+                  <h4 className={trust_styles.cardHeading}>1M</h4>
+                  <p className={trust_styles.cardSubtext}>photos Upload & Share</p>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div className={`flex justify-center items-center gap-4 p-4 rounded-lg ${trust_styles.trustCard}`}>
+                <Image
+                  src="/ninenine.svg"
+                  alt="Trust Card 3"
+                  width={50}
+                  height={50}
+                  className="flex-shrink-0"
+                />
+                <div>
+                  <h4 className={trust_styles.cardHeading}>99%</h4>
+                  <p className={trust_styles.cardSubtext}>face Recognition Accuracy</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT SECTION */}
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+            <div className={`w-full md:w-[90%] h-full p-6 rounded-xl flex flex-col justify-between ${trust_styles.rightCard}`}>
+
+              {/* Points */}
+              <div className="flex flex-col gap-8">
+                {/* Point 1 */}
+                <div className="flex items-start gap-10">
+                  <div className={trust_styles.circle}>
+                    <Image src="/general.svg" alt="Feature 1" width={24} height={24} />
+                  </div>
+                  <div>
+                    <h4 className={`mb-3 ${trust_styles.pointHeading}`}>High resolution photos</h4>
+                    <p className={trust_styles.pointSubtext}>Automatically find your photos with smart facial recognition—no endless scrolling.</p>
+                  </div>
+                </div>
+
+                {/* Point 2 */}
+                <div className="flex items-start gap-10">
+                  <div className={trust_styles.circle}>
+                    <Image src="/general.svg" alt="Feature 2" width={24} height={24} />
+                  </div>
+                  <div>
+                    <h4 className={`mb-3 ${trust_styles.pointHeading}`}>One-click Download</h4>
+                    <p className={trust_styles.pointSubtext}>With just one click, you can download all photos to your device or cloud storage.</p>
+                  </div>
+                </div>
+
+                {/* Point 3 */}
+                <div className="flex items-start gap-10">
+                  <div className={trust_styles.circle}>
+                    <Image src="/general.svg" alt="Feature 3" width={24} height={24} />
+                  </div>
+                  <div>
+                    <h4 className={`mb-3 ${trust_styles.pointHeading}`}>Private & Secured</h4>
+                    <p className={trust_styles.pointSubtext}>Your photos are private. Only you and those you share them with can access them.</p>
+                  </div>
+                </div>
+
+                {/* Point 4 */}
+                <div className="flex items-start gap-10">
+                  <div className={trust_styles.circle}>
+                    <Image src="/general.svg" alt="Feature 4" width={24} height={24} />
+                  </div>
+                  <div>
+                    <h4 className={`mb-3 ${trust_styles.pointHeading}`}>Customizations</h4>
+                    <p className={trust_styles.pointSubtext}>Create a personalized experience by customizing everything with your brand's colors and style.</p>
+                  </div>
+                </div>
+
+                {/* Point 5 */}
+                <div className="flex items-start gap-10">
+                  <div className={trust_styles.circle}>
+                    <Image src="/general.svg" alt="Feature 5" width={24} height={24} />
+                  </div>
+                  <div>
+                    <h4 className={`mb-3 ${trust_styles.pointHeading}`}>High resolution photos</h4>
+                    <p className={trust_styles.pointSubtext}>Automatically find your photos with smart facial recognition—no endless scrolling.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </section>
+
+
+
+
+
+
 
 
     </>

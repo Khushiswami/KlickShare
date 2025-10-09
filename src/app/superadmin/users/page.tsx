@@ -148,7 +148,8 @@ export default function UsersPage() {
             <table className="w-full border border-gray-300 bg-white shadow-md rounded-lg text-black">
               <thead>
                 <tr className="bg-gray-200 text-left">
-                  <th className="p-3">ID</th>
+                  <th className="p-3">S No.</th>
+                  <th className="p-3">User ID</th>
                   <th className="p-3">Name</th>
                   <th className="p-3">Mobile</th>
                   <th className="p-3">Status</th>
@@ -156,40 +157,43 @@ export default function UsersPage() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((u) => (
+                {users.map((u, index) => (
                   <tr key={u._id} className="border-t hover:bg-gray-50 text-black">
-                    <td className="p-3">{u._id}</td>
+                    <td className="p-3">{(currentPage - 1) * pageSize + index + 1}</td>
+                    <td className="p-3">{u._id.slice(0, 8)}</td>
                     <td className="p-3">{u.name}</td>
                     <td className="p-3">{u.mobileNumber}</td>
                     <td className="p-3">
                       <span
                         className={`px-2 py-1 rounded text-sm ${u.status === "active"
-                            ? "bg-green-200 text-green-800"
-                            : "bg-red-200 text-red-800"
+                          ? "bg-green-200 text-green-800"
+                          : "bg-red-200 text-red-800"
                           }`}
                       >
                         {u.status}
                       </span>
                     </td>
-                    <td className="p-3 flex space-x-3">
+                    <td className="p-3 flex flex-col space-y-2">
                       {/* Edit */}
                       <a
                         href={`/superadmin/users/edit/${u._id}`}
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:underline w-28 text-center"
                       >
                         Edit
                       </a>
+
                       {/* Activate/Deactivate */}
                       <button
                         onClick={() => toggleStatus(u._id)}
-                        className="text-sm bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
+                        className="text-sm bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900 w-28"
                       >
                         {u.status === "active" ? "Deactivate" : "Activate"}
                       </button>
+
                       {/* Delete */}
                       <button
                         onClick={() => handleDelete(u._id)}
-                        className="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                        className="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 w-28"
                       >
                         Delete
                       </button>

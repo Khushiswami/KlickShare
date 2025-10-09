@@ -26,7 +26,7 @@ export async function GET(req: Request) {
       .skip((page - 1) * limit)
       .limit(limit)
       .lean();
-
+    
     return NextResponse.json({ data: docs, total });
   } catch (err: any) {
     console.error("GET /api/photographers error:", err);

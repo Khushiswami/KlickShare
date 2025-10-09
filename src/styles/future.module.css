@@ -1,0 +1,77 @@
+/* Gradient Text */
+.gradientText {
+    background: linear-gradient(90deg, #1F6563 0%, #3ECBC7 39%, #2F9895 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 3rem;
+}
+
+/* Subtext */
+.subText {
+    color: #697E7F;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Card container (optional extra styling) */
+.card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 2.5rem;
+    padding: 30px;
+    padding-bottom: 70px;
+}
+
+/* Buttons */
+.joinButton {
+    background-color: #F4C900;
+    color: black;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+
+}
+
+.joinButton:hover {
+    background-color: #ffd82b;
+    transform: translateY(-2px);
+
+}
+
+.pricingButton {
+    background-color: #E6F9FA;
+    color: #1F6563;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s, color 0.3s;
+    border: 1px solid #1F6563;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+
+}
+
+.pricingButton:hover {
+    background-color: #dafdff;
+    color: #1F6563;
+    transform: translateY(-2px);
+
+}
+
+/* Info section heading */
+.infoHeading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1F6563;
+}
+
+/* Info section subtext */
+.infoSubtext {
+    font-size: 0.875rem;
+    color: #697E7F;
+    line-height: 1.4;
+}

@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, context:{ params :ParamsPromise}):Pr
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
-
+  
 export async function PUT(req: NextRequest, context:{ params :ParamsPromise}):Promise<NextResponse>{
   const {id}=await context.params;
   try {

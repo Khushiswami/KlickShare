@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -18,26 +16,39 @@ export default function EditPhotographer() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!id) return;
-    setLoading(true);
-    fetch(`/api/photographers/${id}`)
-      .then((r) => r.json())
-      .then((j) => {
-        if (j.data) {
-          setName(j.data.name || "");
-          setCompanyName(j.data.companyName || "");
-          setMobileNumber(j.data.mobileNumber || "");
-          setStatus(j.data.status || "inactive");
-        } else {
+    if (!id) {
+      router.push("/superadmin/photographers");
+      return;
+    }
+    async function load() {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/photographers/${id}`);
+        if (!res.ok) {
+          const errBody = await res.json().catch(() => null);
+          console.error("Fetch single error:", errBody);
+          throw new Error("Failed to load photographer");
+        }
+        const j = await res.json();
+        if (!j.data) {
           alert("Photographer not found");
           router.push("/superadmin/photographers");
+          return;
         }
-      })
-      .catch((e) => {
-        console.error(e);
+        const d = j.data;
+        setName(d.name ?? "");
+        setCompanyName(d.companyName ?? "");
+        setMobileNumber(d.mobileNumber ?? "");
+        setStatus(d.status ?? "inactive");
+      } catch (err) {
+        console.error("Error loading photographer:", err);
         alert("Failed to load");
-      })
-      .finally(() => setLoading(false));
+        router.push("/superadmin/photographers");
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
   }, [id, router]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -49,13 +60,14 @@ export default function EditPhotographer() {
         body: JSON.stringify({ name, companyName, mobileNumber, status }),
       });
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err?.error || "Update failed");
+        const errBody = await res.json().catch(() => null);
+        console.error("Update error body:", errBody);
+        throw new Error(errBody?.error || "Update failed");
       }
       alert("Updated successfully");
       router.push("/superadmin/photographers");
     } catch (err: any) {
-      console.error(err);
+      console.error("handleSubmit error:", err);
       alert(err.message || "Failed to update");
     }
   }
@@ -64,7 +76,6 @@ export default function EditPhotographer() {
     <AdminProtected>
       <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
         <h1 className="text-xl font-bold mb-4 text-black">Edit Photographer</h1>
-
         {loading ? (
           <div>Loading...</div>
         ) : (
@@ -103,7 +114,9 @@ export default function EditPhotographer() {
               <label className="block mb-1 text-black">Status</label>
               <select
                 value={status}
-                onChange={(e) => setStatus(e.target.value as "active" | "inactive")}
+                onChange={(e) =>
+                  setStatus(e.target.value as "active" | "inactive")
+                }
                 className="w-full px-3 py-2 border rounded text-black"
               >
                 <option value="active">Active</option>
@@ -111,7 +124,7 @@ export default function EditPhotographer() {
               </select>
             </div>
 
-            <div className="flex justify-between text-black">
+            <div className="flex justify-between">
               <button
                 type="button"
                 onClick={() => router.push("/superadmin/photographers")}
@@ -119,10 +132,9 @@ export default function EditPhotographer() {
               >
                 Cancel
               </button>
-
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded "
+                className="px-4 py-2 bg-blue-600 text-white rounded"
               >
                 Save Changes
               </button>
