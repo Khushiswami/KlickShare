@@ -9,6 +9,7 @@ import future_styles from "@/styles/future.module.css"
 import trust_styles from "@/styles/trust.module.css"
 import AnimatedContent from '../components/Animations/AnimatedContent'
 import BounceCards from '../components/Animations/BounceCards'
+import CountUp from '../components/Animations/CountUp'
 
 
 
@@ -403,7 +404,7 @@ export default function HomePage() {
           threshold={0.2}
           delay={0.3}
         >
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20 ">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-30 ">
 
             {/* LEFT SECTION */}
             <div className="w-full md:w-1/2 flex flex-col gap-6">
@@ -432,8 +433,10 @@ export default function HomePage() {
                     className="flex-shrink-0"
                   />
                   <div>
-                    <h4 className={trust_styles.cardHeading}>15K</h4>
-                    <p className={trust_styles.cardSubtext}>Active User On Aap</p>
+                    <h4 className={trust_styles.cardHeading}>
+                      <CountUp from={0} to={15} separator="," duration={1} />K
+                    </h4>
+                    <p className={trust_styles.cardSubtext}>Active Users On App</p>
                   </div>
                 </div>
 
@@ -447,8 +450,10 @@ export default function HomePage() {
                     className="flex-shrink-0"
                   />
                   <div>
-                    <h4 className={trust_styles.cardHeading}>1M</h4>
-                    <p className={trust_styles.cardSubtext}>photos Upload & Share</p>
+                    <h4 className={trust_styles.cardHeading}>
+                      <CountUp from={0} to={1} separator="," duration={1} />M
+                    </h4>
+                    <p className={trust_styles.cardSubtext}>Photos Uploaded & Shared</p>
                   </div>
                 </div>
 
@@ -462,8 +467,10 @@ export default function HomePage() {
                     className="flex-shrink-0"
                   />
                   <div>
-                    <h4 className={trust_styles.cardHeading}>99%</h4>
-                    <p className={trust_styles.cardSubtext}>face Recognition Accuracy</p>
+                    <h4 className={trust_styles.cardHeading}>
+                      <CountUp from={0} to={99}  duration={1} />%
+                    </h4>
+                    <p className={trust_styles.cardSubtext}>Face Recognition Accuracy</p>
                   </div>
                 </div>
               </div>
@@ -478,7 +485,7 @@ export default function HomePage() {
                   {/* Point 1 */}
                   <div className="flex items-start gap-10">
                     <div className={trust_styles.circle}>
-                      <Image src="/general.svg" alt="Feature 1" width={24} height={24} />
+                      <Image src="/point1.svg" alt="Feature 1" width={24} height={24} />
                     </div>
                     <div>
                       <h4 className={`mb-3 ${trust_styles.pointHeading}`}>High resolution photos</h4>
@@ -489,7 +496,7 @@ export default function HomePage() {
                   {/* Point 2 */}
                   <div className="flex items-start gap-10">
                     <div className={trust_styles.circle}>
-                      <Image src="/general.svg" alt="Feature 2" width={24} height={24} />
+                      <Image src="/point2.svg" alt="Feature 2" width={24} height={24} />
                     </div>
                     <div>
                       <h4 className={`mb-3 ${trust_styles.pointHeading}`}>One-click Download</h4>
@@ -500,7 +507,7 @@ export default function HomePage() {
                   {/* Point 3 */}
                   <div className="flex items-start gap-10">
                     <div className={trust_styles.circle}>
-                      <Image src="/general.svg" alt="Feature 3" width={24} height={24} />
+                      <Image src="/point3.svg" alt="Feature 3" width={24} height={24} />
                     </div>
                     <div>
                       <h4 className={`mb-3 ${trust_styles.pointHeading}`}>Private & Secured</h4>
@@ -511,7 +518,7 @@ export default function HomePage() {
                   {/* Point 4 */}
                   <div className="flex items-start gap-10">
                     <div className={trust_styles.circle}>
-                      <Image src="/general.svg" alt="Feature 4" width={24} height={24} />
+                      <Image src="/point4.svg" alt="Feature 4" width={24} height={24} />
                     </div>
                     <div>
                       <h4 className={`mb-3 ${trust_styles.pointHeading}`}>Customizations</h4>
@@ -522,7 +529,7 @@ export default function HomePage() {
                   {/* Point 5 */}
                   <div className="flex items-start gap-10">
                     <div className={trust_styles.circle}>
-                      <Image src="/general.svg" alt="Feature 5" width={24} height={24} />
+                      <Image src="/point5.svg" alt="Feature 5" width={24} height={24} />
                     </div>
                     <div>
                       <h4 className={`mb-3 ${trust_styles.pointHeading}`}>High resolution photos</h4>
