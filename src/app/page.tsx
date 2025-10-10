@@ -1,23 +1,20 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaUpload } from "react-icons/fa";
 import styles from "@/styles/home.module.css";
-import qr_styles from "@/styles/qr.module.css"
-import htw_styles from "@/styles/howitworks.module.css"
-import future_styles from "@/styles/future.module.css"
-import trust_styles from "@/styles/trust.module.css"
-import AnimatedContent from '../components/Animations/AnimatedContent'
-import BounceCards from '../components/Animations/BounceCards'
-import CountUp from '../components/Animations/CountUp'
-
-
+import qr_styles from "@/styles/qr.module.css";
+import htw_styles from "@/styles/howitworks.module.css";
+import future_styles from "@/styles/future.module.css";
+import trust_styles from "@/styles/trust.module.css";
+import AnimatedContent from '../components/Animations/AnimatedContent';
+import BounceCards from '../components/Animations/BounceCards';
+import CountUp from '../components/Animations/CountUp';
 
 export default function HomePage() {
   const words = ["Photographer", "Weddings", "Corporate Events", "Social Events", "Tours"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [bounce, setBounce] = useState(true);
-
 
   const images = [
     "https://picsum.photos/100/100?",
@@ -28,7 +25,6 @@ export default function HomePage() {
     "https://picsum.photos/800/800?",
   ];
 
-
   const transformStyles = [
     "rotate(5deg) translate(-380px)",
     "rotate(0deg) translate(-240px)",
@@ -38,7 +34,7 @@ export default function HomePage() {
     "rotate(-5deg) translate(400px)",
   ];
 
-
+  // Word bounce effect
   useEffect(() => {
     const interval = setInterval(() => {
       setBounce(false); // start exit animation
@@ -50,9 +46,31 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Scroll-triggered animation for BounceCards
+  const [animateCards, setAnimateCards] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setAnimateCards(true);
+            observer.unobserve(entry.target); // stop observing after first trigger
+          }
+        });
+      },
+      { threshold: 0.3 } // trigger when 30% visible
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
+
       {/* Hero Section */}
       <AnimatedContent
         distance={100}
@@ -114,7 +132,6 @@ export default function HomePage() {
       </AnimatedContent>
 
 
-
       {/* Card section */}
       <AnimatedContent
         distance={100}
@@ -127,7 +144,8 @@ export default function HomePage() {
         threshold={0.2}
         delay={0.3}
       >
-        <div><section
+        <section
+          ref={sectionRef}
           className={`${qr_styles.qrSection} max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col items-center justify-center min-h-screen text-center`}
         >
           <h2 className={qr_styles.heading}>
@@ -142,24 +160,24 @@ export default function HomePage() {
             All content is automatically organized in your private digital album.
           </p>
 
-          {/* Card Animation */}
-          <div className="mt-20 flex justify-center">
-            <BounceCards
-              className="custom-bounceCards"
-              images={images}
-              containerWidth={500}
-              containerHeight={250}
-              animationDelay={1}
-              animationStagger={0.08}
-              easeType="elastic.out(1, 0.5)"
-              transformStyles={transformStyles}
-              enableHover={false}
-            />
+          {/* Bounce Cards: animate on scroll */}
+          <div className="mt-30 flex justify-center">
+            {animateCards && (
+              <BounceCards
+                className="custom-bounceCards"
+                images={images}
+                containerWidth={500}
+                containerHeight={250}
+                animationDelay={1}
+                animationStagger={0.08}
+                easeType="elastic.out(1, 0.5)"
+                transformStyles={transformStyles}
+                enableHover={false}
+              />
+            )}
           </div>
-        </section></div>
+        </section>
       </AnimatedContent>
-
-
 
       {/* How It Works Section */}
       <AnimatedContent
@@ -288,9 +306,8 @@ export default function HomePage() {
       </AnimatedContent>
 
 
-
       {/* Future of Photo Sharing Section */}
-      <section className="bg-[#E1EAEA] py-16 px-4 sm:px-6 lg:px-12">
+      <section className="bg-[#E6F9FA] py-16 px-4 sm:px-6 lg:px-12">
         <AnimatedContent
           distance={100}
           direction="vertical"
@@ -392,7 +409,7 @@ export default function HomePage() {
 
 
       {/* Trusted QR Code Photo Sharing Section */}
-      <section className="bg-[#E1EAEA] py-16 px-4 sm:px-6 lg:px-12">
+      <section className="bg-[#ffffff] py-16 px-4 sm:px-6 lg:px-12">
         <AnimatedContent
           distance={100}
           direction="vertical"
@@ -468,7 +485,7 @@ export default function HomePage() {
                   />
                   <div>
                     <h4 className={trust_styles.cardHeading}>
-                      <CountUp from={0} to={99}  duration={1} />%
+                      <CountUp from={0} to={99} duration={1} />%
                     </h4>
                     <p className={trust_styles.cardSubtext}>Face Recognition Accuracy</p>
                   </div>
@@ -545,7 +562,6 @@ export default function HomePage() {
 
 
       </section>
-
     </>
   );
 }
