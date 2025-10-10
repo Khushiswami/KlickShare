@@ -41,13 +41,13 @@
 
 @media (min-width: 1024px) {
   .heading {
-    font-size: 4rem; /* lg screens */
+    font-size: 3.125rem; /* lg screens */
   }
 }
 
 .subText {
   color: #697E7F;
-  font-size: 1rem; /* base for mobile */
+  font-size: 1.2rem; /* base for mobile */
   line-height: 1.8;
   max-width: 800px; /* keeps text readable */
   margin: 0 auto;
@@ -61,6 +61,6 @@
 
 @media (min-width: 1024px) {
   .subText {
-    font-size: 0.9rem; /* lg screens */
+    font-size: 1.125rem; /* lg screens */
   }
 }

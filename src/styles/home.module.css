@@ -44,7 +44,7 @@
 @media (min-width: 1024px) {
   .headingPrimary,
   .headingHighlight {
-    font-size: 3.5rem; /* bigger on desktop */
+    font-size: 3.125rem; /* bigger on desktop */
   }
 }
 

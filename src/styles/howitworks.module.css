@@ -15,13 +15,14 @@
 
 @media (min-width: 1024px) {
   .gradientText {
-    font-size: 4rem; /* lg screens */
+    font-size: 3.125rem; /* lg screens */
   }
 }
 
 /* Subtext color */
 .subText {
   color: #697E7F;
+  font-size: 1.2rem;
 }
 
 /* Step circle */
@@ -41,7 +42,7 @@
 
 /* Step label */
 .stepLabel {
-  font-size: 2rem;
+  font-size: 1.875rem;
   color: #1F6563;
   font-weight: 500;
 }
@@ -55,7 +56,7 @@
 
 /* Step subtext */
 .stepSubtext {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #697E7F;
   max-width: 500px; /* optional to limit width */
   text-transform:capitalize;

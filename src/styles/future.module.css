@@ -4,13 +4,13 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 3rem;
+    font-size: 3.125rem;
 }
 
 /* Subtext */
 .subText {
     color: #697E7F;
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.6;
 }
 
