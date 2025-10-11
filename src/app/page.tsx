@@ -26,12 +26,12 @@ export default function HomePage() {
 
 
   const images = [
-    "https://picsum.photos/100/100?",
-    "https://picsum.photos/500/500?",
-    "https://picsum.photos/600/600?",
-    "https://picsum.photos/700/700?",
-    "https://picsum.photos/300/300?",
-    "https://picsum.photos/800/800?",
+    "/card1.jpg",
+    "/card2.jpg",
+    "/card3.jpg",
+    "/card4.jpg",
+    "/card5.jpg",
+    "/card6.jpg",
   ];
 
   const transformStyles = [
