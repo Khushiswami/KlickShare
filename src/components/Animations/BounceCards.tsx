@@ -129,7 +129,7 @@ export default function BounceCards({
       {images.map((src, idx) => (
        <div
   key={idx}
-  className={`card card-${idx} absolute w-[250px] h-[280px] rounded-2xl overflow-hidden p-[5px]`}
+  className={`card card-${idx} absolute w-[220px] h-[240px] rounded-2xl overflow-hidden p-[3px]`}
   style={{
     background: 'linear-gradient(135deg, #1F6563, #3DC6C2, #1F6563)',
     transform: transformStyles[idx] || 'none',
@@ -137,7 +137,7 @@ export default function BounceCards({
   onMouseEnter={() => pushSiblings(idx)}
   onMouseLeave={resetSiblings}
 >
-  <div className="w-full h-full bg-black rounded-xl p-[6px] flex items-center justify-center overflow-hidden">
+  <div className="w-full h-full bg-black rounded-xl p-[9px] flex items-center justify-center overflow-hidden">
     <img
       className="w-full h-full object-cover rounded-lg"
       src={src}

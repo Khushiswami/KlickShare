@@ -44,8 +44,10 @@ export default function Navbar() {
 
         {/* Right Section */}
         <div className={styles.authSection}>
-          <button className={styles.tryNow}>Try Now</button>
-
+          <button className={styles.tryNow}>
+            <img src="/try-now.svg" alt="icon" className={styles.icon} />
+            Try Now
+          </button>
           {/* Mobile Menu Toggle */}
           <button
             className={`${styles.menuToggle} md:hidden ml-4`}

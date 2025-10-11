@@ -1,0 +1,63 @@
+.joinSection {
+  width: 100%;
+  max-width: 100%; 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-end; 
+}
+
+/* Gradient heading */
+.gradientText {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #1F6563, #3ECBC7, #2F9895);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Review box */
+.dialogueBox {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px 20px;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Triangle pointing downward */
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 60px solid white;
+  position: relative;
+  z-index: 10;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.15));
+  margin-top: -1px;
+}
+
+/* Profile image */
+.profileCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #1F6563;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .gradientText {
+    font-size: 2.2rem;
+  }
+}
+
+

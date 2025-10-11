@@ -2,19 +2,28 @@
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { FaUpload } from "react-icons/fa";
+import { FaRightToBracket } from "react-icons/fa6";
 import styles from "@/styles/home.module.css";
 import qr_styles from "@/styles/qr.module.css";
 import htw_styles from "@/styles/howitworks.module.css";
 import future_styles from "@/styles/future.module.css";
 import trust_styles from "@/styles/trust.module.css";
+import join_styles from "@/styles/join.module.css"
 import AnimatedContent from '../components/Animations/AnimatedContent';
 import BounceCards from '../components/Animations/BounceCards';
 import CountUp from '../components/Animations/CountUp';
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Autoplay } from "swiper/modules";
+
 
 export default function HomePage() {
   const words = ["Photographer", "Weddings", "Corporate Events", "Social Events", "Tours"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [bounce, setBounce] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
 
   const images = [
     "https://picsum.photos/100/100?",
@@ -34,6 +43,27 @@ export default function HomePage() {
     "rotate(-5deg) translate(400px)",
   ];
 
+  // review data
+  const reviews = [
+    {
+      text: "The guests really enjoy being interactive at the party. It's cheaper than hiring a photographer and I absolutely love the pics and videos from the guests perspective.",
+      name: "Alice Johnson",
+      profile: "/profile-vector.svg",
+      stars: "/5stars.png",
+    },
+    {
+      text: "The guests really enjoy being interactive at the party. It's cheaper than hiring a photographer and I absolutely love the pics and videos from the guests perspective.",
+      name: "Mark Lee",
+      profile: "/profile-vector.svg",
+      stars: "/5stars.png",
+    },
+    {
+      text: "The guests really enjoy being interactive at the party. It's cheaper than hiring a photographer and I absolutely love the pics and videos from the guests perspective.",
+      name: "Sophie Turner",
+      profile: "/profile-vector.svg",
+      stars: "/5stars.png",
+    },
+  ];
   // Word bounce effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,6 +76,7 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+
   // Scroll-triggered animation for BounceCards
   const [animateCards, setAnimateCards] = useState(false);
   const sectionRef = useRef(null);
@@ -56,17 +87,20 @@ export default function HomePage() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setAnimateCards(true);
-            observer.unobserve(entry.target); // stop observing after first trigger
+            observer.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.3 } // trigger when 30% visible
     );
-
     if (sectionRef.current) observer.observe(sectionRef.current);
-
     return () => observer.disconnect();
   }, []);
+
+
+
+  // Swiper for reviews
+
 
   return (
     <>
@@ -103,17 +137,7 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-4">
               <button className={styles.uploadButton}>
-                <FaUpload className="inline mr-2" /> Upload
-              </button>
-
-              <button className={`${styles.storeButton} flex items-center gap-2 px-4 py-2 rounded-lg`}>
-                App Store
-                <img src="/apple-log.svg" alt="Apple Store" className="w-5 h-5" />
-              </button>
-
-              <button className={`${styles.storeButton} flex items-center gap-2 px-4 py-2 rounded-lg`}>
-                Play Store
-                <img src="/playstore-logo.svg" alt="Google Play Store" className="w-5 h-5" />
+                <FaRightToBracket className="inline mr-2" /> Sign Up Now
               </button>
             </div>
           </div>
@@ -562,6 +586,92 @@ export default function HomePage() {
 
 
       </section>
+
+      {/* Join Future Of Photo Sharing Section */}
+      <AnimatedContent
+        distance={100}
+        direction="vertical"
+        reverse={false}
+        duration={1}
+        initialOpacity={0.2}
+        animateOpacity
+        scale={1}
+        threshold={0.2}
+        delay={0.3}
+      >
+        <div><section
+          className={`${join_styles.joinSection} relative w-full bg-cover bg-center bg-no-repeat`}
+          style={{
+            backgroundImage: 'url("/join.svg")',
+          }}
+        >
+          <div className="relative max-w-7xl mx-auto px-6 sm:px-4 py-20 flex flex-col lg:flex-row items-end justify-between gap-10 h-screen bottom-[-10]">
+            {/* Left Side */}
+            <div className="flex-1 flex flex-col gap-6 lg:px-12 z-10">
+              <h2 className={join_styles.gradientText}>Join Future Of Photo Sharing</h2>
+              <p className="text-[#697E7F] text-lg sm:text-base">
+                Stand out with professionalism and leave a lasting impression.
+              </p>
+              <button className="bg-[#F4C900] text-black font-semibold px-6 py-3 rounded-lg w-max hover:scale-105 transition-transform">
+                SignUp / Login
+              </button>
+            </div>
+
+            {/* Right Side */}
+            <div className="flex-1 flex flex-col items-center relative z-10">
+              {/* Review Box */}
+              <div className={join_styles.dialogueBox}>
+                <Swiper
+                  modules={[Autoplay]}
+                  autoplay={{ delay: 4000, disableOnInteraction: false }}
+                  loop={true}
+                  onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
+                  className="w-full"
+                >
+                  {reviews.map((review, idx) => (
+                    <SwiperSlide key={idx}>
+                      <p className="text-center text-[#333] text-lg sm:text-base leading-relaxed">
+                        {review.text}
+                      </p>
+                      <div className="flex justify-center mt-4">
+                        <Image src="/stars.svg" alt="Stars" width={140} height={24} />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+
+              {/* Downward Triangle */}
+              <div className={join_styles.triangle}></div>
+
+              {/* Profile Circle + Name */}
+              <div className="flex items-center gap-4 mt-4 sm:flex sm:gap-2">
+                <div className={join_styles.profileCircle}>
+                  <Image
+                    src={reviews[currentSlide].profile}
+                    alt={reviews[currentSlide].name}
+                    width={20}
+                    height={20}
+                    className="rounded-full"
+                  />
+                </div>
+                <span className="font-semibold text-[#1F6563] text-lg sm:text-base">
+                  {reviews[currentSlide].name}
+                </span>
+              </div>
+            </div>
+          </div>
+        </section></div>
+
+      </AnimatedContent>
+
+
+
+
+
+
+
+
     </>
   );
 }

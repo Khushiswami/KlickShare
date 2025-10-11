@@ -1,99 +1,4 @@
-/* .header {
-  width: 100%;
-}
 
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logoWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.logoImage {
-  object-fit: contain;
-}
-
-.navLinks {
-  display: flex;
-  gap: 2rem;
-}
-
-.navLink {
-  position: relative;
-  color: #1F6563;
-  font-weight: 500;
-  text-decoration: none;
-  padding: 0.6rem 0.8rem;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-
-.navLink::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border-radius: 10px;
-  padding: 2px; 
-  background: linear-gradient(
-    90deg,
-    #1F6563 0%,
-    #D3F5F7 61%,
-    #1F6563 98%
-  );
-  background-size: 300% 300%;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.navLink:hover::before,
-.navLink:focus::before,
-.navLinkActive::before {
-  opacity: 1;
-  animation: gradientMove 7s linear infinite;
-}
-
-.navLink span {
-  position: relative;
-  z-index: 1;
-}
-
-.authSection {
-  display: flex;
-  align-items: center;
-}
-
-.tryNow {
-  background-color: #F4C900;
-  border: none;
-  border-radius: 10px;
-  padding: 0.6rem 1.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.tryNow:hover {
-  transform: scale(1.05);
-} */
 
 
 
@@ -179,6 +84,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }
 
 .tryNow:hover {
