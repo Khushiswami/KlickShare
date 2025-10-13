@@ -1,12 +1,17 @@
 .joinSection {
   width: 100%;
-  max-width: 100%; 
-  background-position: center;
-  background-size: contain;
+  max-width: 100%;
+  background-image: url(/join.svg);
+  background-position: bottom center; 
+  background-size: contain; 
   background-repeat: no-repeat;
   display: flex;
-  align-items: flex-end; 
+  flex-direction: column;
+  align-items: flex-end;
+  min-height: 100vh;
+  padding-bottom: 20px;
 }
+
 
 /* Gradient heading */
 .gradientText {
@@ -15,6 +20,8 @@
   background: linear-gradient(90deg, #1F6563, #3ECBC7, #2F9895);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+  text-align: left;
 }
 
 /* Review box */
@@ -22,8 +29,8 @@
   background-color: white;
   border-radius: 16px;
   padding: 24px 20px;
-  max-width: 520px;
   width: 100%;
+  max-width: 520px;
   position: relative;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
@@ -35,10 +42,9 @@
   border-left: 30px solid transparent;
   border-right: 30px solid transparent;
   border-top: 60px solid white;
-  position: relative;
-  z-index: 10;
-  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.15));
   margin-top: -1px;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.15));
+  z-index: 10;
 }
 
 /* Profile image */
@@ -55,9 +61,66 @@
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
+  .joinSection {
+    background-image: none;
+    background-color: #e6f9fa;
+    min-height: auto; /* grow with content */
+    padding-bottom: 20px;
+  }
+
   .gradientText {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .dialogueBox {
+    max-width: 480px;
+  }
+
+  .triangle {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 50px solid white;
+  }
+
+  .profileCircle {
+    width: 45px;
+    height: 45px;
+  }
+
+  .profileCircle img {
+    width: 30px;
+    height: 30px;
   }
 }
 
+@media (max-width: 768px) {
+ 
+}
 
+@media (max-width: 640px) {
+  .gradientText {
+    font-size: 1.6rem;
+  }
+
+  .dialogueBox {
+    max-width: 90%;
+    padding: 20px 16px;
+  }
+
+  .triangle {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 40px solid white;
+  }
+
+  .profileCircle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profileCircle img {
+    width: 24px;
+    height: 24px;
+  }
+}

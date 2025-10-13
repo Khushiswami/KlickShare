@@ -47,7 +47,7 @@
 
 .subText {
   color: #697E7F;
-  font-size: 1.2rem; /* base for mobile */
+  font-size: 1rem; /* base for mobile */
   line-height: 1.8;
   max-width: 800px; /* keeps text readable */
   margin: 0 auto;

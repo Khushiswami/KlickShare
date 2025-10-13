@@ -1,7 +1,3 @@
-
-
-
-
 .header {
   width: 100%;
   position: relative;
@@ -56,9 +52,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -157,8 +155,15 @@
     display: none;
   }
 
-  .tryNow {
-    padding: 0.5rem 1.2rem;
-    font-size: 0.9rem;
+  .logoImage {
+    width: 70%;
   }
+
+  .tryNow {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    width: 120px;
+  }
+
+
 }
