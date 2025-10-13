@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
+
 import { useState, useEffect, useRef } from "react";
-import { FaUpload } from "react-icons/fa";
 import { FaRightToBracket } from "react-icons/fa6";
 import styles from "@/styles/home.module.css";
 import qr_styles from "@/styles/qr.module.css";
@@ -237,7 +238,11 @@ export default function HomePage() {
                 <span className={htw_styles.stepSubtext}>
                   Effortlessly upload your photos to the platform — quick, simple, and secure. Ideal for photographers and everyday users alike.
                 </span>
-                <button className={htw_styles.button}>Upload</button>
+
+                <Link href="/signup">
+                  <button className={htw_styles.button}>Upload</button>
+                </Link>
+
               </div>
             </div>
 
@@ -374,10 +379,12 @@ export default function HomePage() {
                   At Klickshare, we believe the memories deserve more than just storage — they deserve intelligent sharing.
                   We present a next-generation photo sharing platform designed to simplify how moments are captured, organized, and shared using facial recognition and modern group-based distribution.
                 </p>
-                <div className="flex gap-4 mt-4 flex-wrap">
+
+                <div className={`flex gap-4 mt-4 flex-wrap ${future_styles.buttonContainer}`}>
                   <button className={future_styles.joinButton}>Join Group</button>
                   <button className={future_styles.pricingButton}>Pricing</button>
                 </div>
+
               </div>
             </div>
 
@@ -441,7 +448,6 @@ export default function HomePage() {
           </div>
         </AnimatedContent>
       </section>
-
 
 
       {/* Trusted QR Code Photo Sharing Section */}
@@ -584,9 +590,12 @@ export default function HomePage() {
               <p className="text-[#697E7F] text-base sm:text-lg">
                 Stand out with professionalism and leave a lasting impression.
               </p>
-              <button className="bg-[#F4C900] text-black font-semibold px-6 py-3 rounded-lg w-max mx-auto lg:mx-0 hover:scale-105 transition-transform">
-                SignUp / Login
-              </button>
+              <Link href="/signup">
+                <button className="bg-[#F4C900] text-black font-semibold px-6 py-3 rounded-lg w-max mx-auto lg:mx-0 hover:scale-105 transition-transform">
+                  SignUp / Login
+                </button>
+              </Link>
+
             </div>
 
             {/* Right Side */}

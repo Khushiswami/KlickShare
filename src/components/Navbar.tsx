@@ -44,22 +44,35 @@ export default function Navbar() {
 
         {/* Right Section */}
         <div className={styles.authSection}>
-          <button className={styles.tryNow}>
-            <img src="/try-now.svg" alt="icon" className={styles.icon} />
-            Try Now
-          </button>
+          <Link href="/signup">
+            <button className={styles.tryNow}>
+              <img src="/try-now.svg" alt="icon" className={styles.icon} />
+              Try Now
+            </button>
+          </Link>
+
           {/* Mobile Menu Toggle */}
           <button
             className={`${styles.menuToggle} md:hidden ml-4`}
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen(true)}
           >
-            {menuOpen ? <FiX size={26} /> : <FiMenu size={26} />}
+            <FiMenu size={26} />
           </button>
+
         </div>
       </nav>
 
       {/* Mobile Sidebar Menu */}
+
       <div className={`${styles.mobileMenu} ${menuOpen ? styles.active : ""}`}>
+        {/* Close Button Inside Sidebar */}
+        <button
+          className={styles.closeButton}
+          onClick={() => setMenuOpen(false)}
+        >
+          <FiX size={26} />
+        </button>
+
         {links.map((link) => (
           <Link
             key={link.href}

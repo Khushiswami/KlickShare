@@ -23,7 +23,9 @@
 @media (max-width: 768px) {
   .subText {
     font-size: 1rem;
+    text-align: center;
   }
+  
 }
 
 /* Card */
@@ -75,5 +77,13 @@
 @media (max-width: 640px) {
   .infoHeading, .infoSubtext {
     text-align: center;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .buttonContainer {
+    justify-content: center;
+    flex-wrap: nowrap;
   }
 }
