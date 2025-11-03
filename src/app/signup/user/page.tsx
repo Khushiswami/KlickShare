@@ -92,7 +92,7 @@ export default function UserSignup() {
         const data = await res.json();
         throw new Error(data.error || "Something went wrong");
       }
-
+ 
       setSuccess("Account created successfully! Redirecting...");
       setTimeout(() => {
         router.push("/dashboard/user");

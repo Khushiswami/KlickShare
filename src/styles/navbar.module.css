@@ -176,3 +176,52 @@
   color: #1F6563;
   cursor: pointer;
 }
+
+
+/* Dropdown menu below Try Now */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;          /* directly below the button */
+  right: 0;           /* aligns to right edge of the Try Now button */
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  z-index: 50;
+  margin-top: 0.5rem; /* small gap below Try Now button */
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  animation: dropdownFade 0.2s ease;
+}
+
+/* Each dropdown item */
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  color: #333;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #f3f4f6;
+  color: #000;
+}
+
+/* Dropdown fade animation */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

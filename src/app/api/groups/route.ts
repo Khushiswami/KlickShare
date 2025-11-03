@@ -4,7 +4,7 @@ import Group from "@/models/Group";
 
 export async function GET() {
   await connectMongo();
-  const groups = await Group.find();
+  const groups = await Group.find().populate("photos");
   return NextResponse.json(groups);
 }
 

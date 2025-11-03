@@ -100,7 +100,7 @@ export default function UserSignup() {
       setLoading(false);
       return;
     }
-
+ 
     try {
       const res = await fetch("/api/auth/signup", {
         method: "POST",

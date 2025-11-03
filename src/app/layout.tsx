@@ -46,7 +46,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-smooth-gradient text-gray-900">
         <Navbar />
         <main className="flex-grow">{children}</main>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

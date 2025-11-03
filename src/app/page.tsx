@@ -97,11 +97,9 @@ export default function HomePage() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
-
+  
   return (
     <>
-
       {/* Hero Section */}
       <AnimatedContent
         distance={100}
@@ -580,10 +578,10 @@ export default function HomePage() {
         scale={1}
         threshold={0.2}
         delay={0.3}
-      >
+      > 
+
         <section className={`${join_styles.joinSection} relative w-full`}>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:py-0 py-10 flex flex-col lg:flex-row flex-wrap items-end justify-between gap-6 sm:gap-10 w-full min-h-screen md:w-auto">
-
             {/* Left Side */}
             <div className="flex-1 flex flex-col gap-4 lg:px-12 z-10 text-center lg:text-left justify-end">
               <h2 className={join_styles.gradientText}>Join Future Of Photo Sharing</h2>
@@ -594,8 +592,7 @@ export default function HomePage() {
                 <button className="bg-[#F4C900] text-black font-semibold px-6 py-3 rounded-lg w-max mx-auto lg:mx-0 hover:scale-105 transition-transform">
                   SignUp / Login
                 </button>
-              </Link>
-
+              </Link> 
             </div>
 
             {/* Right Side */}
@@ -609,7 +606,8 @@ export default function HomePage() {
                   onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
                   className="w-full"
                 >
-                  {reviews.map((review, idx) => (
+                  
+                    {reviews.map((review, idx) => (
                     <SwiperSlide key={idx}>
                       <p className="text-center text-[#333] text-base sm:text-lg leading-relaxed">
                         {review.text}
@@ -619,9 +617,9 @@ export default function HomePage() {
                       </div>
                     </SwiperSlide>
                   ))}
-                </Swiper>
+                </Swiper>   
               </div>
-
+   
               {/* Downward Triangle */}
               <div className={join_styles.triangle}></div>
 
@@ -645,18 +643,6 @@ export default function HomePage() {
           </div>
         </section>
       </AnimatedContent>
-
-
-
-
-
-
-
-
-
-
-
-
     </>
   );
 }
