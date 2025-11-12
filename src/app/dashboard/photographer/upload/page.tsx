@@ -31,6 +31,7 @@ export default function UploadPhotosPage() {
     fetchGroups();
   }, []);
 
+
   // Fetch photos when group changes
   useEffect(() => {
     if (!selectedGroup) return;
@@ -42,6 +43,7 @@ export default function UploadPhotosPage() {
     fetchPhotos();
   }, [selectedGroup]);
 
+  
   // Upload handler
   const handleUpload = async () => {
     if (!selectedGroup || !selectedFiles) {

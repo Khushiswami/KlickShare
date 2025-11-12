@@ -28,7 +28,7 @@ const UserSchema: Schema = new Schema(
     isActive: {
       type: Boolean,
       default: true,
-    },
+    },  
     loginAttempts: { type: Number, default: 0 },
     blockedUntil: { type: Date, default: null },
     email: { type: String },

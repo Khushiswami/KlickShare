@@ -661,7 +661,7 @@ export default function UserSignup() {
                     "Create Account"
                   )}
                 </button>
-
+                                                                                
                 <p className="helper-text">
                   By creating an account, you agree to our Terms & Conditions
                   and Privacy Policy.
